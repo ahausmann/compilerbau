@@ -1,0 +1,56 @@
+
+package de.dhbw.blaaah.parser;
+
+import java_cup.runtime.*;
+import java.util.*;
+import de.dhbw.blaaah.*;
+
+parser code {:
+    public static Symbol parse(java.io.InputStream inputStream) throws Exception {
+        SymbolFactory factory = new DefaultSymbolFactory();
+        return new Parser(new MiniSqlScanner(inputStream, factory), factory).parse();
+    }
+:}
+
+terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET;
+
+terminal COMMA, NAME, VALUE, STAR, SEMICOLON, EQUAL, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
+
+non terminal statement_list, statement, create_statement, select_statement, insert_statement, update_statement;
+
+non terminal name_list, value_list;
+
+statement_list ::= statement_list:list statement:st
+                    {:
+                        ((List<Statement>)list).add((Statement)st);
+                        RESULT = list;
+                    :}
+                    | statement:st
+                    {:
+                        List<Statement> tmp = new ArrayList<Statement>();
+                        tmp.add(st);
+                        RESULT = tmp;
+                    :};
+
+statement ::= insert_statement:s {: RESULT = s; :}
+        | select_statement:s {: RESULT = s; :}
+        | create_statement:s {: RESULT = s; :}
+        | update_statement:s {: RESULT = s; :} ;
+
+insert_statement ::= INSERT INTO NAME:table LEFT_PARENTHESIS name_list:columns RIGHT_PARENTHESIS VALUES LEFT_PARENTHESIS value_list:values RIGHT_PARENTHESIS SEMICOLON
+                {:
+                    RESULT = new InsertStatement(table, columns, values);
+                :};
+
+name_list ::= name_list:list COMMA NAME:name
+                {:
+                    ((List<String>)list).add((String)name);
+                    RESULT = list;
+                :}
+                | NAME:name
+                {:
+                    List<String> tmp = new ArrayList<String>();
+                    tmp.add(name);
+                    RESULT = tmp;
+                :};
+
