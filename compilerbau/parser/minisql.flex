@@ -3,36 +3,42 @@ import java_cup.runtime.*;
 
 %%
 
-%class MiniSqlLexer
+%class MiniSqlScanner
 %unicode
 %cup
+%line
 %column
 
 %{
 
-    private Symbol symbol(int type) {
-        return new Symbol(type, yyline, yycolumn);
+    public MiniSqlScanner(java.io.InputStream r, SymbolFactory sf) {
+        this(r);
+        this.sf = sf;
     }
-    private Symbol symbol(int type, Object value) {
-        return new Symbol(type, yyline, yycolumn, value);
-    }
+
+    private SymbolFactory sf;
 %}
-
-Whitespace = [ \t\f]
-
-Name = [:jletter:] [:jletterdigit:]*
-
-Integer = 0 | [1-9][0-9]* | [+-][1-9][0-9]*
 
 %%
 
-<YYINITIAL> {
-    "SELECT"    { return symbol(sym.SELECT); }
-    "FROM"      { return symbol(sym.FROM); }
-    "CREATE TABLE" { return symbol(sym.CREATE_TABLE); }
-    "INSERT INTO" { return symbol(sym.INSERT_INTO); }
-    "UPDATE"    { return symbol(sym.UPDATE); }
+[Ss][Ee][Ll][Ee][Cc][Tt]    { return sf.newSymbol("SELECT", sym.SELECT); }
+[Ff][Rr][Oo][Mm]            { return sf.newSymbol("FROM", sym.FROM); }
+[Cc][Rr][Ee][Aa][Tt][Ee]    { return sf.newSymbol("CREATE", sym.CREATE); }
+[Tt][Aa][Bb][Ll][Ee]        { return sf.newSymbol("TABLE", sym.TABLE); }
+[Ii][Nn][Ss][Ee][Rr][Tt]    { return sf.newSymbol("INSERT", sym.INSERT); }
+[Ii][Nn][Tt][Oo]            { return sf.newSymbol("INTO", sym.INTO); }
+[Uu][Pp][Dd][Aa][Tt][Ee]    { return sf.newSymbol("UPDATE", sym.UPDATE); }
+[Vv][Aa][Ll][Uu][Ee][Ss]    { return sf.newSymbol("VALUES", sym.VALUES); }
+[Ss][Ee][Tt]                { return sf.newSymbol("SET", sym.SET); }
+";"                         { return sf.newSymbol(";", sym.SEMICOLON); }
+"("                         { return sf.newSymbol("(", sym.LEFT_PARENTHESIS); }
+")"                         { return sf.newSymbol(")", sym.RIGHT_PARENTHESIS); }
+"*"                         { return sf.newSymbol("*", sym.STAR); }
+","                         { return sf.newSymbol(",", sym.COMMA); }
+"="                         { return sf.newSymbol("=", sym.EQUAL); }
+[a-zA-Z][a-zA-Z0-9_]*       { return sf.newSymbol("Name", sym.NAME, yytext()); }
+"\"[^\"]*\""                { return sf.newSymbol("Value", sym.VALUE, yytext()); }
 
-    {Name}      { return symbol(sym.NAME); }
-    {Whitespace} { /* ignored */ }
-}
+[ \t\r\n\f] { /* ignore */ }
+
+. { System.err.println("Illegal character: " + yytext()); }
