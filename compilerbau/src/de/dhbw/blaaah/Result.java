@@ -7,11 +7,17 @@ import java.util.Date;
  * User: alexander
  * Creation date: 21.11.13 - 13:32
  */
-public interface Result
-{
+public interface Result {
     /**
      * Gibt den Zeitstempel zurück, an dem dieses Ergebnis erstellt wurde.
+     *
      * @return
      */
     Date getTimestamp();
+
+    /**
+     * Gibt {@value true} zurück, wenn der Befehl erfolgreich war.
+     * @return
+     */
+    boolean isSuccess();
 }

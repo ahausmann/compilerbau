@@ -9,29 +9,29 @@ import java.util.List;
  * User: alexander
  * Creation date: 21.11.13 - 13:28
  */
-public class TableDefinition
-{
+public class TableDefinition {
     private String name;
-
     private List<ColumnDefinition> columns;
 
-    public String getName()
-    {
+    public TableDefinition(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Fügt eine neue Spalte ein.
+     *
      * @param name
      * @param type
-     * @param size
      */
-    public void addColumn(String name, ColumnType type, int size) throws ColumnDefinedException {
-        columns.add(new ColumnDefinition(name, type, size));
+    public void addColumn(String name, ColumnType type) throws ColumnDefinedException {
+        columns.add(new ColumnDefinition(name, type));
     }
 }

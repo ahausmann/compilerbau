@@ -5,7 +5,11 @@ package de.dhbw.blaaah;
  * User: alexander
  * Creation date: 21.11.13 - 13:42
  */
-public interface RowResult extends Result, Iterable<Row>
-{
+public interface RowResult extends Result, Iterable<Row> {
+
+    /**
+     * Gibt die Anzahl der Zeilen zurück.
+     * @return
+     */
     int getRowCount();
 }

@@ -5,9 +5,10 @@ package de.dhbw.blaaah;
  * User: alexander
  * Creation date: 21.11.13 - 13:33
  */
-public interface Row
-{
-    public int getRowIndex();
+public interface Row {
+    int getRowIndex();
 
-    public Object getColumn(String name);
+    boolean hasColumn(String name);
+
+    Object getColumn(String name);
 }

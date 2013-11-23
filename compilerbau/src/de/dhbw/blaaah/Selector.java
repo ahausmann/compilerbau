@@ -5,7 +5,6 @@ package de.dhbw.blaaah;
  * User: alexander
  * Creation date: 21.11.13 - 13:33
  */
-public interface Selector<T>
-{
+public interface Selector<T> {
     boolean select(T obj);
 }

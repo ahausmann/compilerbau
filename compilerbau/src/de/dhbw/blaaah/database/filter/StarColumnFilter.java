@@ -8,11 +8,9 @@ import de.dhbw.blaaah.database.ColumnFilter;
  * User: alexander
  * Creation date: 21.11.13 - 13:53
  */
-public class StarColumnFilter implements ColumnFilter
-{
+public class StarColumnFilter implements ColumnFilter {
     @Override
-    public boolean useColumn(ColumnDefinition definition)
-    {
+    public boolean useColumn(ColumnDefinition definition) {
         // Alle Spalten zurückgeben
         return true;
     }
