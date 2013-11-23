@@ -41,6 +41,7 @@ public interface Database {
 
     /**
      * Entfernt eine Tabelle aus der Datenbank.
+     *
      * @param name
      * @return
      */
@@ -61,7 +62,15 @@ public interface Database {
 
     /**
      * Gibt das Objekt zurück, mit dem Ergebnisse erzeugt werden können, die aus dieser Datenbank stammen.
+     *
      * @return
      */
     ResultFactory getResultFactory();
+
+    /**
+     * Gibt das Objekt zurück, das zur Erstellung von Zeilen dieser Datenbank verwendet werden soll.
+     *
+     * @return
+     */
+    RowFactory getRowFactory();
 }

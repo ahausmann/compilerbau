@@ -1,6 +1,9 @@
 package de.dhbw.blaaah.statements;
 
-import de.dhbw.blaaah.*;
+import de.dhbw.blaaah.Database;
+import de.dhbw.blaaah.Result;
+import de.dhbw.blaaah.Statement;
+import de.dhbw.blaaah.Table;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 
 import java.util.List;
@@ -21,8 +24,8 @@ public class InsertStatement implements Statement {
      * Erstellt ein neues Statement zum Einfügen von neuen Zeilen in eine Tabelle.
      *
      * @param tableName Tabellenname
-     * @param columns Die Spaltennamen
-     * @param values Liste von Spaltenwerten
+     * @param columns   Die Spaltennamen
+     * @param values    Liste von Spaltenwerten
      */
     public InsertStatement(String tableName, List<String> columns, List<List<String>> values) {
         this.tableName = tableName;
@@ -38,7 +41,7 @@ public class InsertStatement implements Statement {
         if (table != null && values.size() % columns.size() == 0) {
             for (List<String> rowValues : values) {
                 try {
-                    table.addRow(RowFactory.getDefault().createRow(-1, columns, rowValues));
+                    table.addRow(database.getRowFactory().createRow(-1, columns, rowValues));
                 } catch (Exception ignored) {
                     return database.getResultFactory().createErrorResult("Invalid values");
                 }
