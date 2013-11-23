@@ -58,4 +58,10 @@ public interface Database {
      * @return
      */
     Table getTable(String name);
+
+    /**
+     * Gibt das Objekt zurück, mit dem Ergebnisse erzeugt werden können, die aus dieser Datenbank stammen.
+     * @return
+     */
+    ResultFactory getResultFactory();
 }

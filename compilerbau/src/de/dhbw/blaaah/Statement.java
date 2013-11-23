@@ -11,7 +11,8 @@ public interface Statement {
     /**
      * Führt die Anweisung aus.
      *
-     * @param database
+     * @param database Datenbank auf der die Anweisung ausgeführt werden soll.
+     * @return Das Ergebnis dieser Anweisung. Darf niemals {@value null} sein.
      */
-    void execute(Database database) throws DatabaseException;
+    Result execute(Database database) throws DatabaseException;
 }
