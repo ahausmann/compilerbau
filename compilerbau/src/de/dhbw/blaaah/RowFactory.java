@@ -13,7 +13,7 @@ import java.util.Map;
 public abstract class RowFactory {
     private static RowFactory defaultFactory = new DefaultRowFactory();
 
-    public abstract Row createRow(int index, List<String> columns, List<? extends Object> values);
+    public abstract Row createRow(int index, List<String> columns, List<?> values);
 
     public abstract Row createRow(int index, Map<String, Object> values);
 
