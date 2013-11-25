@@ -2,7 +2,6 @@ package de.dhbw.blaaah.statements;
 
 import de.dhbw.blaaah.*;
 import de.dhbw.blaaah.database.ColumnFilter;
-import de.dhbw.blaaah.database.filter.OrColumnFilter;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -15,18 +14,18 @@ import java.util.List;
  */
 public class SelectStatement implements Statement {
 
-    private final Condition whereCondition;
+    private final WhereCondition whereWhereCondition;
     private String tableName;
     private List<ColumnFilter> columnFilters;
 
-    public SelectStatement(List<ColumnFilter> columnFilters, String tableName, Condition whereCondition) {
+    public SelectStatement(List<ColumnFilter> columnFilters, String tableName, WhereCondition whereWhereCondition) {
         this.columnFilters = columnFilters;
         this.tableName = tableName;
-        this.whereCondition = whereCondition;
+        this.whereWhereCondition = whereWhereCondition;
     }
 
     @Override
-    public Result execute(Database database) throws DatabaseException {
+    public void execute(Database database) throws DatabaseException {
         throw new NotImplementedException();
     }
 }

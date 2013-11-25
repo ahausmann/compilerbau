@@ -5,7 +5,7 @@ package de.dhbw.blaaah;
  * Date: 25.11.13
  * Time: 13:38
  */
-public interface Condition {
+public interface WhereCondition {
     /**
      * Überprüft, ob die Zeile auf die Bedingung zutrifft.
      * @param row Die Zeile, die überprüft werden soll.

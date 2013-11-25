@@ -1,7 +1,6 @@
 package de.dhbw.blaaah.statements;
 
 import de.dhbw.blaaah.Database;
-import de.dhbw.blaaah.Result;
 import de.dhbw.blaaah.Statement;
 import de.dhbw.blaaah.Table;
 import de.dhbw.blaaah.exceptions.DatabaseException;
@@ -35,7 +34,7 @@ public class InsertStatement implements Statement {
     }
 
     @Override
-    public Result execute(Database database) throws DatabaseException {
+    public void execute(Database database) throws DatabaseException {
         Table table = database.getTable(tableName);
 
         // Tabelle ist vorhanden und die Werte sind in der richtigen Anzahl vorhanden.
