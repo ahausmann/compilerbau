@@ -39,7 +39,7 @@ public class InsertStatement implements Statement {
         Table table = database.getTable(tableName);
 
         // Tabelle ist vorhanden und die Werte sind in der richtigen Anzahl vorhanden.
-        if (table != null && values.size() % columns.size() == 0) {
+        if (table != null) {
             for (List<String> rowValues : values) {
                 try {
                     table.addRow(database.getRowFactory().createRow(-1, columns, rowValues));
