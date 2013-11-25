@@ -1,0 +1,42 @@
+Erstellung eines DBMS
+
+Mit:
+- Terminal
+- SQL Befehle
+- Ausgabe
+
+
+Parser: jay
+
+Grammar-Code:
+seperade: unabhängig von Code
+mixed: 
+
+Scanner = Lexer
+
+JLex -> Lexer
+
+Dokumentation:
+- Inline Kommentare 
+- UML Dokumentation
+	-> Klassendiagramm
+	-> Sequenzdiagramm
+- 1 A4 Blatt Summary
+
+
+SQL-Befehle:
+- Tabelle anlegen
+- Tabelle füllen
+- Tabelle abfragen (-> simpel, Einzelne Spalten (keine WHERE-Statement)
+	bpsw. select A, B, * from C 
+	weitere statements bringen Zusatzpunkte!
+
+
+Abgabe: 12.12.13
+
+----
+Notenbildung (25% von Gesamtnote):
+40% Software-Design
+30% Doku
+30% Funktion
++ Präsentation(12.12.13)
