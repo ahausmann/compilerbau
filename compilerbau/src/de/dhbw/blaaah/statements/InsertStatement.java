@@ -5,6 +5,7 @@ import de.dhbw.blaaah.Result;
 import de.dhbw.blaaah.Statement;
 import de.dhbw.blaaah.Table;
 import de.dhbw.blaaah.exceptions.DatabaseException;
+import de.dhbw.blaaah.exceptions.InvalidRowException;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class InsertStatement implements Statement {
             for (List<String> rowValues : values) {
                 try {
                     table.addRow(database.getRowFactory().createRow(-1, columns, rowValues));
-                } catch (Exception ignored) {
+                } catch (InvalidRowException ignored) {
                     return database.getResultFactory().createErrorResult("Invalid values");
                 }
             }

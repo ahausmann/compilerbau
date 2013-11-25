@@ -2,6 +2,7 @@ package de.dhbw.blaaah;
 
 import de.dhbw.blaaah.database.ColumnDefinition;
 import de.dhbw.blaaah.database.ColumnFilter;
+import de.dhbw.blaaah.exceptions.InvalidRowException;
 
 /**
  * Author: Alexander Hausmann <hausmann.alex@gmail.com>
@@ -48,10 +49,11 @@ public interface Table {
     /**
      * Fügt eine neue Zeile in die Tabelle ein.
      *
-     * @param row
+     * @param row Die Zeile, die eingefügt werden soll. Der Zeilenindex muss ignoriert werden, dieser wird durch
+     *            das Abspeichern festgelegt.
      * @return
      */
-    int addRow(Row row);
+    int addRow(Row row) throws InvalidRowException;
 
     /**
      * Entfernt die Zeile mit dem angegebenen Index.

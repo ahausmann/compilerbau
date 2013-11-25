@@ -1,8 +1,6 @@
 package de.dhbw.blaaah.database;
 
-import de.dhbw.blaaah.Database;
-import de.dhbw.blaaah.Result;
-import de.dhbw.blaaah.Table;
+import de.dhbw.blaaah.*;
 
 import java.io.*;
 import java.util.Date;
@@ -98,5 +96,15 @@ public class SimpleDatabase implements Database {
     @Override
     public Table getTable(String name) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public ResultFactory getResultFactory() {
+        return ResultFactory.getDefault();
+    }
+
+    @Override
+    public RowFactory getRowFactory() {
+        return RowFactory.getDefault();
     }
 }
