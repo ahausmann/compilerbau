@@ -1,0 +1,14 @@
+Alex:
+- Speicherung + Auslesen der Daten
+
+Fatih:
+- Parser
+
+Robin:
+- statements
+
+
+---------
+- Konsolenanwendung
+- UML Klassendiagramm
+- Sequenzdiagramm

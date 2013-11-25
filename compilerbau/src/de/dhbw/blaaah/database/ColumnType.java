@@ -11,8 +11,6 @@ import java.util.Date;
  * Creation date: 21.11.13 - 13:29
  */
 public enum ColumnType {
-    CHAR,
-    VARCHAR,
     TEXT,
     NUMBER,
     DATE,
@@ -20,8 +18,6 @@ public enum ColumnType {
 
     public Object parseValue(String value) {
         switch (this) {
-            case CHAR:
-            case VARCHAR:
             case TEXT:
                 return value;
 
