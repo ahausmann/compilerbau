@@ -29,7 +29,7 @@ public interface Database {
      *
      * @return
      */
-    Iterable<Table> getTables();
+    Iterable<? extends Table> getTables();
 
     /**
      * Erzeugt eine neue Tabelle.
