@@ -3,17 +3,60 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="506.0">de.dhbw.blaaah.ResultFactory</node>
-    <node x="287.0" y="700.0">de.dhbw.blaaah.Statement</node>
-    <node x="531.0" y="700.0">de.dhbw.blaaah.Condition</node>
-    <node x="0.0" y="253.0">de.dhbw.blaaah.Table</node>
-    <node x="359.0" y="506.0">de.dhbw.blaaah.Row</node>
-    <node x="0.0" y="0.0">de.dhbw.blaaah.Database</node>
-    <node x="0.0" y="700.0">de.dhbw.blaaah.RowFactory</node>
+    <node x="397.0" y="526.0">de.dhbw.blaaah.ResultFactory</node>
+    <node x="643.75" y="0.0">de.dhbw.blaaah.database.ColumnFilter</node>
+    <node x="0.0" y="98.0">de.dhbw.blaaah.statements.InsertStatement</node>
+    <node x="66.75" y="0.0">de.dhbw.blaaah.Statement</node>
+    <node x="307.5" y="0.0">de.dhbw.blaaah.Condition</node>
+    <node x="0.0" y="526.0">de.dhbw.blaaah.Table</node>
+    <node x="253.0" y="98.0">de.dhbw.blaaah.statements.SelectStatement</node>
+    <node x="0.0" y="779.0">de.dhbw.blaaah.Row</node>
+    <node x="875.0" y="118.0">de.dhbw.blaaah.database.filter.NameColumnFilter</node>
+    <node x="1103.0" y="139.0">de.dhbw.blaaah.database.filter.StarColumnFilter</node>
+    <node x="552.0" y="118.0">de.dhbw.blaaah.database.filter.OrColumnFilter</node>
+    <node x="276.0" y="779.0">de.dhbw.blaaah.RowFactory</node>
+    <node x="0.0" y="273.0">de.dhbw.blaaah.Database</node>
   </nodes>
   <notes />
-  <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="351.0" y="454.0" />
+  <edges>
+    <edge source="de.dhbw.blaaah.database.filter.NameColumnFilter" target="de.dhbw.blaaah.database.ColumnFilter">
+      <point x="0.0" y="-45.0" />
+      <point x="979.0" y="78.0" />
+      <point x="833.45" y="78.0" />
+      <point x="54.200000000000045" y="24.0" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.InsertStatement" target="de.dhbw.blaaah.Statement">
+      <point x="0.0" y="-65.0" />
+      <point x="-49.75" y="24.0" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.SelectStatement" target="de.dhbw.blaaah.Condition">
+      <point x="0.0" y="-65.0" />
+      <point x="0.0" y="24.0" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.filter.StarColumnFilter" target="de.dhbw.blaaah.database.ColumnFilter">
+      <point x="0.0" y="-24.0" />
+      <point x="1238.5" y="68.0" />
+      <point x="887.65" y="68.0" />
+      <point x="108.39999999999998" y="24.0" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.filter.OrColumnFilter" target="de.dhbw.blaaah.database.ColumnFilter">
+      <point x="75.75" y="-45.0" />
+      <point x="0.0" y="24.0" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.SelectStatement" target="de.dhbw.blaaah.Statement">
+      <point x="-93.0" y="-65.0" />
+      <point x="299.5" y="78.0" />
+      <point x="216.0" y="78.0" />
+      <point x="49.75" y="24.0" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.SelectStatement" target="de.dhbw.blaaah.database.ColumnFilter">
+      <point x="93.0" y="-65.0" />
+      <point x="485.5" y="68.0" />
+      <point x="670.85" y="68.0" />
+      <point x="-108.39999999999998" y="24.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="652.0" y="196.0" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
