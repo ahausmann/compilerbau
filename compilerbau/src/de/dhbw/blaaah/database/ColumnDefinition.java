@@ -10,7 +10,7 @@ public class ColumnDefinition {
 
     private ColumnType type;
 
-    ColumnDefinition(String name, ColumnType type) {
+    public ColumnDefinition(String name, ColumnType type) {
         this.name = name;
         this.type = type;
     }

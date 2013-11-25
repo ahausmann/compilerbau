@@ -47,6 +47,14 @@ public interface Table {
     Iterable<Row> getRows(ColumnFilter columns);
 
     /**
+     * Gibt die Zeile mit dem angegebenen Index zurück.
+     *
+     * @param index Zeilenindex
+     * @return Die Zeile oder {@value null}, falls keine Zeile mit dem angegebenen Index existiert.
+     */
+    Row getRow(int index);
+
+    /**
      * Fügt eine neue Zeile in die Tabelle ein.
      *
      * @param row Die Zeile, die eingefügt werden soll. Der Zeilenindex muss ignoriert werden, dieser wird durch
@@ -70,7 +78,6 @@ public interface Table {
     Iterable<ColumnDefinition> getColumns();
 
     /**
-     *
      * @param name
      * @return
      */
