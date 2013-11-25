@@ -12,6 +12,14 @@ import java.util.List;
 public abstract class RowFactory {
     private static RowFactory defaultFactory = new DefaultRowFactory();
 
+    /**
+     * Erstellt eine neue Datenbankzeile.
+     *
+     * @param index Zeilenindex der Zeile
+     * @param columns
+     * @param values
+     * @return
+     */
     public abstract Row createRow(int index, List<String> columns, List<?> values);
 
     public static RowFactory getDefault() {

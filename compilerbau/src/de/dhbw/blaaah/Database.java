@@ -55,22 +55,22 @@ public interface Database {
     /**
      * Gibt die Tabelle mit dem angegeben Namen zurück.
      *
-     * @param name
-     * @return
+     * @param name Name der Tabelle
+     * @return Die Tabelle mit dem angegebenen Namen oder {@value null}, falls keine Tabelle mit dem Namen existiert.
      */
     Table getTable(String name);
 
     /**
      * Gibt das Objekt zurück, mit dem Ergebnisse erzeugt werden können, die aus dieser Datenbank stammen.
      *
-     * @return
+     * @return Ein Objekt, mit dem Ergebnisobjekte erstellt werden können.
      */
     ResultFactory getResultFactory();
 
     /**
      * Gibt das Objekt zurück, das zur Erstellung von Zeilen dieser Datenbank verwendet werden soll.
      *
-     * @return
+     * @return Ein Objekt, mit dem Zeilen erzeugt werden können, die von dieser Datenbank verwendet werden.
      */
     RowFactory getRowFactory();
 }
