@@ -8,5 +8,5 @@ package de.dhbw.blaaah.statements;
  * To change this template use File | Settings | File Templates.
  */
 public class CreateTableStatement {
-    
+
 }
