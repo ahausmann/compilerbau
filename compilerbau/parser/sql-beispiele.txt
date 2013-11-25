@@ -1,0 +1,14 @@
+
+SELECT spalte_a, spalte_b, spalte_c FROM tabelle;
+
+SELECT * FROM tabelle;
+
+SELECT * FROM tabelle WHERE spalte_a = wert;
+
+SELECT spalte_a, spalte_b FROM tabelle WHERE spalte_c != 42;
+
+INSERT INTO tabelle (spalte_a, spalte_b, spalte_c) VALUES (zeile1_a, zeile1_b, zeile1_c), (zeile2_a, zeile2_b, zeile2_c);
+
+DELETE * FROM tabelle WHERE spalte_a = wert;
+
+CREATE TABLE tabelle (spalte_a INTEGER, spalte_b TEXT, spalte_c DATE, spalte_d BLOB);
