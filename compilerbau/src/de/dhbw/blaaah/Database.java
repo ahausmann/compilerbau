@@ -53,6 +53,11 @@ public interface Database {
     void vacuum();
 
     /**
+     * Werte der Datenbank speichern.
+     */
+    void save();
+
+    /**
      * Gibt die Tabelle mit dem angegeben Namen zurück.
      *
      * @param name Name der Tabelle

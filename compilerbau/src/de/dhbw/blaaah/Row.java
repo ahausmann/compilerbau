@@ -1,5 +1,7 @@
 package de.dhbw.blaaah;
 
+import java.util.List;
+
 /**
  * Author: Alexander Hausmann <hausmann.alex@gmail.com>
  * User: alexander
@@ -19,10 +21,11 @@ public interface Row {
      * @param name Name der Spalte
      * @return {@value true}, wenn es eine Spalte mit dem Namen gibt.
      */
+    @Deprecated
     boolean hasColumn(String name);
 
     /**
-     * Gibt den Wert zurück, der in einer Spalte abgelegt wurde.
+     * Sucht nach einer Spalte mit dem übergebenen Namen und gibt den Wert der ersten gefundenen zurück.
      *
      * @param name Name der Spalte
      * @return Wert der Spalte, kann {@value null} sein, wenn kein Wert in der Datenbank vorhanden ist.
@@ -34,6 +37,7 @@ public interface Row {
      *
      * @return Anzahl der Spalten
      */
+    @Deprecated
     int getColumnCount();
 
     /**
@@ -44,5 +48,24 @@ public interface Row {
      * @throws IndexOutOfBoundsException Diese Ausnahme wird geworfen, wenn es keine Spalte mit dem angegebenen Index
      *                                   gibt
      */
+    @Deprecated
     Object getColumn(int index);
+
+    /**
+     * Gibt die Namen aller Spalten zurück, die in dieser Zeile vorhanden sind. Spaltennamen können mehrfach in einer Zeile
+     * vorkommen. Der Index in der Liste ist der gleiche wie in der Liste, die von {@link de.dhbw.blaaah.Row#getValues()}
+     * zurückgegeben wird.
+     *
+     * @return Liste mit Spaltennamen
+     * @see de.dhbw.blaaah.Row#getValues()
+     */
+    List<String> getColumnNames();
+
+    /**
+     * Gibt alle Werte einer Zeile als Liste zurück. Diese Liste soll nicht veränderbar sein.
+     *
+     * @return Liste mit Werten
+     * @see de.dhbw.blaaah.Row#getColumnNames()
+     */
+    List<Object> getValues();
 }

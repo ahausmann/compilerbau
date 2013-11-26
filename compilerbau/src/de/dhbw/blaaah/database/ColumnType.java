@@ -11,10 +11,30 @@ import java.util.Date;
  * Creation date: 21.11.13 - 13:29
  */
 public enum ColumnType {
-    TEXT,
-    NUMBER,
-    DATE,
-    BLOB;
+    TEXT ('T'),
+    NUMBER ('N'),
+    DATE ('D'),
+    BLOB ('B'),
+    UNKNOWN ('\0');
+
+    private char shortId;
+
+    private ColumnType(char shortId) {
+        this.shortId = shortId;
+    }
+
+    public static ColumnType getFromShortId(char id) {
+        for (ColumnType type : ColumnType.values()) {
+            if (type.shortId == id)
+                return type;
+        }
+
+        return ColumnType.UNKNOWN;
+    }
+
+    public char getShortId() {
+        return shortId;
+    }
 
     public Object parseValue(String value) {
         switch (this) {

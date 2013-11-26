@@ -39,11 +39,11 @@ public interface Table {
     Iterable<Row> getRows();
 
     /**
-     * Gibt alle Zeilen mit einer Auswahl der Spalten zurück.
+     * NICHT IMPLEMENTIERT UND NICHT VERWENDEN!
      *
-     * @param columns
-     * @return
+     * TODO: Entfernen vor Abgabe
      */
+    @Deprecated
     Iterable<Row> getRows(ColumnFilter columns);
 
     /**
@@ -59,21 +59,22 @@ public interface Table {
      *
      * @param row Die Zeile, die eingefügt werden soll. Der Zeilenindex muss ignoriert werden, dieser wird durch
      *            das Abspeichern festgelegt.
-     * @return
+     * @return Zeilenindex in der Tabelle
+     * @throws InvalidRowException Diese Ausnahme wird geworfen, wenn die Zeile ungültige Spalten enthält.
      */
     int addRow(Row row) throws InvalidRowException;
 
     /**
      * Entfernt die Zeile mit dem angegebenen Index.
      *
-     * @param rowIndex
+     * @param rowIndex Zeilenindex
      */
     void removeRow(int rowIndex);
 
     /**
      * Gibt die Spaltendefinitionen zurück, die in dieser Tabelle vorhanden sind.
      *
-     * @return
+     * @return Eine Auflistung der Spaltendefinitionen.
      */
     Iterable<ColumnDefinition> getColumns();
 
