@@ -5,24 +5,42 @@ import de.dhbw.blaaah.exceptions.ColumnDefinedException;
 import java.util.List;
 
 /**
- * Author: Alexander Hausmann <hausmann.alex@gmail.com>
- * User: alexander
- * Creation date: 21.11.13 - 13:28
+ * Diese Klasse wird für die Erstellung von neuen Tabellen verwendet. Es kann ein Name angegebene werden und die Spalten
+ * angelegt werden.
  */
 public class TableDefinition {
     private String name;
     private List<ColumnDefinition> columns;
 
+    /**
+     * Erstellt eine neue Tabellendefinition mit dem angegebenen Namen.
+     *
+     * @param name Name der Tabelle
+     */
     public TableDefinition(String name) {
         this.name = name;
     }
 
+    /**
+     * Gibt den Namen der Tabelle zurück.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Setzt den Namen der Tabelle.
+     */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Gibt eine Liste der Spalten zurück, die angelegt werden sollen.
+     * @return
+     */
+    public List<ColumnDefinition> getColumns() {
+        return columns;
     }
 
     /**
