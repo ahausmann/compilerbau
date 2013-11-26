@@ -4,15 +4,16 @@ package de.dhbw.blaaah.parser;
 import java_cup.runtime.*;
 import java.util.*;
 import de.dhbw.blaaah.*;
+import de.dhbw.blaaah.statements.*;
 
 parser code {:
     public static Symbol parse(java.io.InputStream inputStream) throws Exception {
         SymbolFactory factory = new DefaultSymbolFactory();
-        return new Parser(new MiniSqlScanner(inputStream, factory), factory).parse();
+        return new MiniSqlParser(new MiniSqlScanner(inputStream, factory), factory).parse();
     }
 :}
 
-terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET;
+terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET, VALUES;
 
 terminal COMMA, NAME, VALUE, STAR, SEMICOLON, EQUAL, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
 

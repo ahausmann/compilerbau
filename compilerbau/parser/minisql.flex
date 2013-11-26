@@ -1,4 +1,6 @@
 
+package de.dhbw.blaaah.parser;
+
 import java_cup.runtime.*;
 
 %%
