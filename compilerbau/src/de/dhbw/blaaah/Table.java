@@ -79,7 +79,9 @@ public interface Table {
     Iterable<ColumnDefinition> getColumns();
 
     /**
-     * @param name
+     * Gibt die Spaltendefinition für eine Spalte zurück.
+     *
+     * @param name Name der Spalte
      * @return
      */
     ColumnDefinition getColumn(String name);
