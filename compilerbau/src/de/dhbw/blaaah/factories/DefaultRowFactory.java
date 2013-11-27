@@ -7,9 +7,7 @@ import de.dhbw.blaaah.database.DefaultRow;
 import java.util.List;
 
 /**
- * User: alexander
- * Date: 21.11.13
- * Time: 15:39
+ * Einfache Implementierung der {@link RowFactory}, die neue Instanzen von {@link DefaultRow} erzeugt.
  */
 public class DefaultRowFactory extends RowFactory {
     @Override
@@ -17,4 +15,8 @@ public class DefaultRowFactory extends RowFactory {
         return new DefaultRow(index, columns, values);
     }
 
+    @Override
+    public Row copyRow(int newIndex, Row oldRow) {
+        return new DefaultRow(newIndex, oldRow.getColumnNames(), oldRow.getValues());
+    }
 }
