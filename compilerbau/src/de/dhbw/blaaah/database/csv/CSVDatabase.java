@@ -12,12 +12,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * User: alexander
- * Date: 25.11.13
- * Time: 15:02
+ * Implementierung der {@link Database}-Schnittstelle mithilfe von CSV-Dateien in einem Ordner. Jede Datei entspricht
+ * einer Tabelle in der Datenbank
  */
 public class CSVDatabase implements Database {
+    /**
+     * Basispfad der Datenbank. Dies muss ein Ordner sein, der Ordnername ist der Datenbankname.
+     */
     protected final File basePath;
+
+    /**
+     * Die Tabellen in dieser Datenbank
+     */
     protected final Map<String, CSVTable> tables;
 
     private Date lastModification;
@@ -35,6 +41,9 @@ public class CSVDatabase implements Database {
         modified();
     }
 
+    /**
+     * Diese Methode wird von Tabellen aufgerufen, wenn diese verändert wurden.
+     */
     protected void modified() {
         lastModification = new Date();
     }

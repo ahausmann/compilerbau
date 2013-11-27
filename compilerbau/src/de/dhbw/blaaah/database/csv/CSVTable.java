@@ -17,18 +17,37 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * User: alexander
- * Date: 25.11.13
- * Time: 15:02
- * <p/>
  * Implementierung der Tabellenschnittstelle basierend auf CSV-Dateien. Diese Implementierung liest nur
  */
 public class CSVTable implements Table {
+    /**
+     * Referenz auf die Datenbank, zu der diese Tabelle gehört.
+     */
     protected final CSVDatabase database;
+
+    /**
+     * Die Tabellendatei. Aus dem Dateinamen wird der Tabellenname abgeleitet.
+     */
     protected final File tableFile;
+
+    /**
+     * Spalten in dieser Tabelle
+     */
     protected final List<ColumnDefinition> columns;
+
+    /**
+     * Zeilen, die aus der Tabellendatei gelesen wurden; Zeilenindex -> Zeile/null
+     */
     protected final Map<Integer, Row> loadedRows;
+
+    /**
+     * Zugriffsdatei, mit der aus der Tabellendatei gelesen wird
+     */
     protected RandomAccessFile accessFile;
+
+    /**
+     * Zeilenzähler, der den Index der nächsten Zeile angibt
+     */
     protected int rowCounter;
 
     /**
@@ -222,6 +241,8 @@ public class CSVTable implements Table {
         values.set(columns.indexOf(column), value);
 
         loadedRows.put(index, database.getRowFactory().createRow(index, columns, values));
+
+        database.modified();
     }
 
     /**
