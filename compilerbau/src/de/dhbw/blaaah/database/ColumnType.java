@@ -62,4 +62,19 @@ public enum ColumnType {
                 return null;
         }
     }
+
+    public boolean isValidValue(Object value) {
+        switch (this) {
+            case TEXT:
+                return value instanceof String;
+            case NUMBER:
+                return (value instanceof Integer) || (value instanceof Double);
+            case DATE:
+                return (value instanceof Date);
+            case BLOB:
+                return (value instanceof byte[]);
+            default:
+                return false;
+        }
+    }
 }

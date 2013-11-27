@@ -7,6 +7,7 @@ import de.dhbw.blaaah.database.ColumnDefinition;
 import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.database.ColumnType;
 import de.dhbw.blaaah.exceptions.InvalidRowException;
+import de.dhbw.blaaah.exceptions.InvalidValueException;
 import de.dhbw.blaaah.exceptions.NoSuchTableException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -201,6 +202,28 @@ public class CSVTable implements Table {
         return null;
     }
 
+    @Override
+    public void changeCell(int index, String column, Object value) throws InvalidValueException {
+        ColumnDefinition columnDef = getColumn(column);
+
+        if (columnDef == null) {
+            throw new InvalidValueException("No such column.");
+        }
+
+        if (!columnDef.getType().isValidValue(value)) {
+            throw new InvalidValueException("Value type doesn't match the column definition");
+        }
+
+        Row oldRow = getRow(index);
+
+        List<String> columns = oldRow.getColumnNames();
+        List<Object> values = new ArrayList<Object>(oldRow.getValues());
+
+        values.set(columns.indexOf(column), value);
+
+        loadedRows.put(index, database.getRowFactory().createRow(index, columns, values));
+    }
+
     /**
      * Liest die Spaltendefinitionen aus der Tabellendatei aus.
      *
@@ -304,10 +327,10 @@ public class CSVTable implements Table {
     }
 
     /**
-     * �berspringt count Newline-Zeichen (\n). Dabei werden Escape-Sequenzen beachtet.
+     * Überspringt count Newline-Zeichen (\n). Dabei werden Escape-Sequenzen beachtet.
      *
      * @param input Eingabe von der gelesen wird.
-     * @param count Anzahl der Zeichen, die �bersprungen werden
+     * @param count Anzahl der Zeichen, die übersprungen werden
      */
     protected void skipLines(DataInput input, int count) throws IOException {
         boolean escape = false;

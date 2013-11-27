@@ -3,6 +3,7 @@ package de.dhbw.blaaah;
 import de.dhbw.blaaah.database.ColumnDefinition;
 import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.exceptions.InvalidRowException;
+import de.dhbw.blaaah.exceptions.InvalidValueException;
 
 /**
  * Author: Alexander Hausmann <hausmann.alex@gmail.com>
@@ -40,7 +41,7 @@ public interface Table {
 
     /**
      * NICHT IMPLEMENTIERT UND NICHT VERWENDEN!
-     *
+     * <p/>
      * TODO: Entfernen vor Abgabe
      */
     @Deprecated
@@ -60,7 +61,8 @@ public interface Table {
      * @param row Die Zeile, die eingefügt werden soll. Der Zeilenindex muss ignoriert werden, dieser wird durch
      *            das Abspeichern festgelegt.
      * @return Zeilenindex in der Tabelle
-     * @throws InvalidRowException Diese Ausnahme wird geworfen, wenn die Zeile ungültige Spalten enthält.
+     * @throws InvalidRowException Diese Ausnahme wird geworfen, wenn die Zeile Spalten enthält, die nicht in der Tabelle
+     *                             vorhanden sind oder die Werte vom falschen Datentyp sind.
      */
     int addRow(Row row) throws InvalidRowException;
 
@@ -85,4 +87,14 @@ public interface Table {
      * @return
      */
     ColumnDefinition getColumn(String name);
+
+    /**
+     * Ändert den Wert in einer Zelle.
+     *
+     * @param index  Zeilenindex
+     * @param column Spaltenname
+     * @param value  Neuer Wert
+     * @throws InvalidValueException Diese Ausnahme wird geworfen, wenn der Wert den falschen Datentyp besitzt.
+     */
+    void changeCell(int index, String column, Object value) throws InvalidValueException;
 }
