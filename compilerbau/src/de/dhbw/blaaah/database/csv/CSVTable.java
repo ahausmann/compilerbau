@@ -154,6 +154,8 @@ public class CSVTable implements Table {
 
         loadedRows.put(addedRow.getRowIndex(), addedRow);
 
+        database.modified();
+
         return rowCounter - 1;
     }
 
@@ -178,6 +180,8 @@ public class CSVTable implements Table {
         if (loadedRows.containsKey(rowIndex)) {
             loadedRows.put(rowIndex, null);
         }
+
+        database.modified();
     }
 
     @Override
