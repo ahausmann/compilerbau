@@ -12,3 +12,5 @@ INSERT INTO tabelle (spalte_a, spalte_b, spalte_c) VALUES (zeile1_a, zeile1_b, z
 DELETE * FROM tabelle WHERE spalte_a = wert;
 
 CREATE TABLE tabelle (spalte_a INTEGER, spalte_b TEXT, spalte_c DATE, spalte_d BLOB);
+
+UPDATE tabelle SET spalte_a = wert WHERE index = 5;
