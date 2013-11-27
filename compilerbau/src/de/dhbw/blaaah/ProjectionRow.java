@@ -7,7 +7,7 @@ import java.util.List;
  *
  * Wenn eine Klasse diese Schnittstelle implementiert, so geben die Methoden {@link de.dhbw.blaaah.Row#getColumnNames()} und
  * {@link de.dhbw.blaaah.Row#getValues()} nach der Erstellung leere Listen zurück. Diese Listen lassen sich nun befüllen, indem
- * die Methode {@link ProjectionRow#addProjection(String)} aufgerufen wird und die Projektionen angefügt werden.
+ * die Methode {@link ProjectionRow#addProjection(String,String)} aufgerufen wird und die Projektionen angefügt werden.
  */
 public interface ProjectionRow extends Row {
 
