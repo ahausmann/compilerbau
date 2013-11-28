@@ -29,6 +29,11 @@ public class DefaultProjectionRow extends AbstractRow implements ProjectionRow {
     }
 
     @Override
+    public void addProjection(String columnName) {
+        this.addProjection(columnName, columnName);
+    }
+
+    @Override
     public void addProjection(String columnName, String outputName) {
         Object value = originalRow.getColumn(columnName);
         columns.add(outputName);
