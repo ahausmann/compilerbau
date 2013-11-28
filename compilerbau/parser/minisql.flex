@@ -44,7 +44,7 @@ import java_cup.runtime.*;
 ","                         { return sf.newSymbol(",", sym.COMMA); }
 "="                         { return sf.newSymbol("=", sym.EQUAL); }
 [a-zA-Z][a-zA-Z0-9_]*       { return sf.newSymbol("Name", sym.NAME, yytext()); }
-"\"[^\"]*\""                { return sf.newSymbol("Value", sym.VALUE, yytext()); }
+\"[^\"]*\"                  { return sf.newSymbol("Value", sym.VALUE, yytext()); }
 
 [ \t\r\n\f] { /* ignore */ }
 

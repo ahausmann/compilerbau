@@ -21,7 +21,7 @@ public class ConsoleApplication {
         }
 
         // Speichern
-        database.save();
+        //database.save();
     }
 
     public static void main(String[] args) {

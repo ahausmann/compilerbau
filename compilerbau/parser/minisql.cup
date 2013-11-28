@@ -4,6 +4,7 @@ package de.dhbw.blaaah.parser;
 import java_cup.runtime.*;
 import java.util.*;
 import de.dhbw.blaaah.*;
+import de.dhbw.blaaah.conditions.*;
 import de.dhbw.blaaah.statements.*;
 import de.dhbw.blaaah.database.*;
 
@@ -89,12 +90,12 @@ value_list  ::= value_list:list COMMA VALUE:value
 
 select_statement ::= SELECT select_list:select FROM NAME:table SEMICOLON
                {:
-                    RESULT = new SelectStatement();
+                    RESULT = new SelectStatement((List<String>)select, (String)table, new AlwaysTrueCondition());
                :}
                |
                     SELECT select_list:select FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
                {:
-                    RESULT = new SelectStatement();
+                    RESULT = new SelectStatement((List<String>)select, (String)table, new EqualsCondition((String)name, (String)value));
                :};
 
 select_list ::= select_list:list COMMA NAME:name
@@ -108,7 +109,7 @@ select_list ::= select_list:list COMMA NAME:name
                     tmp.add((String)name);
                     RESULT = tmp;
                 :}
-                select_list:list COMMA STAR
+                | select_list:list COMMA STAR
                 {:
                     ((List<String>)list).add("*");
                     RESULT = list;
@@ -162,14 +163,14 @@ update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
 
 delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
                {:
-                    RESULT = new DeleteStatement();
+                    RESULT = new DeleteStatement((String)table, new AlwaysTrueCondition());
                :}
                | DELETE STAR FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
                {:
-                    RESULT = new DeleteStatement();
+                    RESULT = new DeleteStatement((String)table, new EqualsCondition((String)name, (String)value));
                :};
 
 drop_statement ::= DROP TABLE NAME:table SEMICOLON
                {:
-                    RESULT = new DropTableStatement();
+                    RESULT = new DropTableStatement((String)table);
                :};
