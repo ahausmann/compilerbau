@@ -1,6 +1,7 @@
 package de.dhbw.blaaah.statements;
 
 import de.dhbw.blaaah.Database;
+import de.dhbw.blaaah.Result;
 import de.dhbw.blaaah.Statement;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 
@@ -16,7 +17,7 @@ import de.dhbw.blaaah.exceptions.DatabaseException;
 public class DropTableStatement implements Statement{
 
     @Override
-    public void execute(Database database) throws DatabaseException {
+    public Result execute(Database database) throws DatabaseException {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
