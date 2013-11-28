@@ -14,11 +14,15 @@ parser code {:
 
 terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET, DELETE, DROP;
 
-terminal COMMA, NAME, VALUE, STAR, SEMICOLON, EQUAL, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
+terminal COMMA, NAME, VALUE, VALUES, WHERE, STAR, SEMICOLON, EQUAL, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
+
+terminal NUMBER, TEXT, DATE;
 
 non terminal statement_list, statement, create_statement, select_statement, insert_statement, update_statement, delete_statement, drop_statement;
 
-non terminal name_list, value_list;
+non terminal name_list, value_list, row_list, select_list, create_list;
+
+non terminal typ;
 
 statement_list ::= statement_list:list statement:st
                     {:
@@ -120,17 +124,30 @@ create_statement ::= CREATE TABLE NAME:table LEFT_PARENTHESIS create_list:create
                     RESULT = new CreateStatement();
                :};
 
-create_list ::= create_list:list COMMA NAME:name TYP:typ
+typ ::= NUMBER
+		{:
+			RESULT = "NUMBER";
+		:}
+		| TEXT
+		{:
+			RESULT = "TEXT";
+		:}
+		| DATE
+		{:
+			RESULT = "DATE";
+		:};
+
+create_list ::= create_list:list COMMA NAME:name typ:typ
                {:
                     ((List<ColumnDefinition>)list).add(new ColumnDefinition(name, typ));
                     RESULT = list;
                :}
-               | NAME:name TYP:typ
+               | NAME:name typ:typ
                {:
                     List<ColumnDefinition> tmp = new ArrayList<ColumnDefinition>();
                     tmp.add(new ColumnDefinition(name, typ));
                     RESULT = tmp;
-               :}
+               :};
 
 update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
                {:
@@ -145,7 +162,7 @@ delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
                {:
                     RESULT = new DeleteStatement();
                :}
-               | DELETE delete_list:delete FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
+               | DELETE STAR FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
                {:
                     RESULT = new DeleteStatement();
                :};
