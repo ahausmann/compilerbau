@@ -1,9 +1,7 @@
 package de.dhbw.blaaah.statements;
 
-import de.dhbw.blaaah.WhereCondition;
-import de.dhbw.blaaah.Database;
-import de.dhbw.blaaah.Statement;
-import de.dhbw.blaaah.Table;
+import de.dhbw.blaaah.*;
+import de.dhbw.blaaah.conditions.EqualsCondition;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 
 /**
@@ -14,21 +12,35 @@ import de.dhbw.blaaah.exceptions.DatabaseException;
  * To change this template use File | Settings | File Templates.
  *
  * Statement zum löschen von Datensätze
+ *
+ * Delete-Statement:   DELETE FROM tableName WHERE columnName = value
+ * whereCondition: Prüfung, ob WhereCondition gültig ist
+ * tableName: Name der Tabelle -> fromStatement
+ * columnName: Spalte
+ * value: Vergleichswert
  */
+
 public class DeleteStatement implements Statement {
 
-    private String tablename;
-    WhereCondition whereWhereCondition;
-    Table table;
+    private String tableName;
+    private WhereCondition whereCondition;
 
-    public DeleteStatement(WhereCondition whereCondition, String tablename){
-        this.tablename=tablename;
-        this.whereWhereCondition = whereCondition;
+    public DeleteStatement(String tableName, WhereCondition whereCondition){
+        this.tableName = tableName;
+        this.whereCondition = whereCondition;
     }
 
     @Override
-    public void execute(Database database) throws DatabaseException {
-        table=database.getTable(tablename);
+    public Result execute(Database database) throws DatabaseException {
+        Table cT = database.getTable(tableName);
 
-    }
+        //Durchlauf von Zeilen und jeweiligen Spalten
+        for(Row row : cT.getRows()){
+
+            if(whereCondition.matches(row)){
+                  cT.removeRow(row.getRowIndex());
+                }
+            }
+        return cT.getDatabase().getResultFactory().createSuccessResult();
+        }
 }

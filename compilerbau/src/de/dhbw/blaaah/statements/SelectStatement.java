@@ -5,27 +5,38 @@ import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * User: alexander
  * Date: 25.11.13
  * Time: 12:59
+ *
+ * Select-Statement: SELECT columnFilters FROM tableName WHERE whereCondition
+ * columnFilters: Liste der Spaltennamen
+ * tableName: Tabellennamen
+ * whereCondition: Überprüfung ob in einer Spalte ein bestimmter Wert vorkommt
  */
 public class SelectStatement implements Statement {
 
-    private final WhereCondition whereWhereCondition;
+    private final WhereCondition whereCondition;
     private String tableName;
-    private List<ColumnFilter> columnFilters;
+    private List<Object> columns;
 
-    public SelectStatement(List<ColumnFilter> columnFilters, String tableName, WhereCondition whereWhereCondition) {
-        this.columnFilters = columnFilters;
+
+    public SelectStatement(List<Object> columns, String tableName, WhereCondition whereCondition) {
+        this.columns = columns;
         this.tableName = tableName;
-        this.whereWhereCondition = whereWhereCondition;
+        this.whereCondition = whereCondition;
     }
 
     @Override
-    public void execute(Database database) throws DatabaseException {
-        throw new NotImplementedException();
+    public Result execute(Database database) throws DatabaseException {
+        Table table = database.getTable(tableName);
+
+
+
+        return table.getDatabase().getResultFactory().createSuccessResult();
     }
 }

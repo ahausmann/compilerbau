@@ -21,7 +21,7 @@ public class EqualsCondition implements WhereCondition {
     }
 
     @Override
-    public boolean isTrue(Row row) {
+    public boolean matches(Row row) {
         Object rowValue = row.getColumn(column);
         return rowValue != null && rowValue.toString().equals(value);
     }

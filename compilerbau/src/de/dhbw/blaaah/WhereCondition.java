@@ -11,5 +11,5 @@ public interface WhereCondition {
      * @param row Die Zeile, die überprüft werden soll.
      * @return {@value true}, falls die Zeile die Bedingung erfüllt, sonst {@value false}
      */
-    boolean isTrue(Row row);
+    boolean matches(Row row);
 }
