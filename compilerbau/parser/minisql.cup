@@ -36,7 +36,8 @@ statement ::= insert_statement:s {: RESULT = s; :}
         | select_statement:s {: RESULT = s; :}
         | create_statement:s {: RESULT = s; :}
         | update_statement:s {: RESULT = s; :}
-        | delete_statement:s {: RESULT = s; :};
+        | delete_statement:s {: RESULT = s; :}
+        | drop_statement:s   {: RESULT = s; :};
 
 insert_statement ::= INSERT INTO NAME:table LEFT_PARENTHESIS name_list:columns RIGHT_PARENTHESIS VALUES row_list:values SEMICOLON
                 {:
@@ -80,22 +81,76 @@ value_list  ::= value_list:list COMMA VALUE:value
                     RESULT = tmp;
                :};
 
-select_statement ::= SELECT STAR FROM ... SEMICOLON
+select_statement ::= SELECT select_list:select FROM NAME:table SEMICOLON
+               :{
+                    RESULT new SelectStatement();
+               :}
+               |
+                    SELECT select_list:select FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
                :{
                     RESULT new SelectStatement();
                :};
 
-create_statement ::= CREATE TABLE NAME:table ... SEMICOLON
+select_list ::= select_list:list COMMA NAME:name
+                {:
+                    ((List<String>)list).add((String)name);
+                    RESULT = list;
+                :}
+                | NAME:name
+                {:
+                    List<String> tmp = new ArrayList<String>();
+                    tmp.add(name);
+                    RESULT = tmp;
+                :}
+                select_list:list COMMA STAR
+                {:
+                    ((List<String>)list).add((String)"*");
+                    RESULT = list;
+                :}
+                | STAR
+                {:
+                    List<String> tmp = new ArrayList<String>();
+                    tmp.add("*");
+                    RESULT = tmp;
+                :};
+
+
+create_statement ::= CREATE TABLE NAME:table LEFT_PARENTHESIS create_list:create RIGHT_PARENTHESIS SEMICOLON
                :{
                     RESULT new CreateStatement();
                :};
 
-update_statement ::= UPDATE NAME:table ... SEMICOLON
+create_list ::= create_list:list COMMA NAME:name TYP:typ
+               :{
+                    ((List<ColumnDefinition>)list).add(new ColumnDefinition(name, typ));
+                    RESULT = list;
+               :}
+               | NAME:name TYP:typ
+               :{
+                    List<ColumnDefinition> tmp = new ArrayList<ColumnDefinition>();
+                    tmp.add(new ColumnDefinition(name, typ));
+                    RESULT = tmp;
+               :}
+
+update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
+               :{
+                    RESULT new UpdateStatement();
+               :}
+               | UPDATE NAME:table SET NAME:name EQUAL VALUE:value WHERE NAME:index EQUAL VALUE:indexv
                :{
                     RESULT new UpdateStatement();
                :};
 
-delete_statement ::= DELETE STAR FROM NAME:table ... SEMICOLON
+delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
                :{
                     RESULT new DeleteStatement();
+               :}
+               | DELETE delete_list:delete FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
+               :{
+                    RESULT new DeleteStatement();
+               :};
+
+drop_statement ::= DROP TABLE NAME:table SEMICOLON
+               :{
+                    RESULT new DropStatement();
                :};
