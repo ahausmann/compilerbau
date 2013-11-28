@@ -49,4 +49,14 @@ public class DefaultProjectionRow extends AbstractRow implements ProjectionRow {
     public List<Object> getValues() {
         return Collections.unmodifiableList(values);
     }
+
+    @Override
+    public String toString() {
+        return "DefaultProjectionRow{" +
+                "rowIndex=" + rowIndex +
+                ", originalRow=" + originalRow +
+                ", columns=" + columns +
+                ", values=" + values +
+                '}';
+    }
 }

@@ -31,4 +31,15 @@ public class DefaultRow extends AbstractRow {
     public List<Object> getValues() {
         return values;
     }
+
+    @Override
+    public String toString() {
+        return "DefaultRow{" +
+                "rowIndex=" + rowIndex +
+                ", columnNames=" + columnNames +
+                ", values=" + values +
+                '}';
+    }
 }
+
+
