@@ -3,6 +3,7 @@ package de.dhbw.blaaah.statements;
 import de.dhbw.blaaah.Database;
 import de.dhbw.blaaah.Result;
 import de.dhbw.blaaah.Statement;
+import de.dhbw.blaaah.Table;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 
 /**
@@ -13,11 +14,19 @@ import de.dhbw.blaaah.exceptions.DatabaseException;
  * To change this template use File | Settings | File Templates.
  *
  * Löschen der gesamten Tabelle
+ * Drop-Table-Statement: DROP TABLE tabelle
  */
 public class DropTableStatement implements Statement{
 
+    private String tableName;
+
+    public DropTableStatement(String tableName){
+        this.tableName = tableName;
+    }
+
     @Override
     public Result execute(Database database) throws DatabaseException {
-        //To change body of implemented methods use File | Settings | File Templates.
+
+        return database.removeTable(tableName);
     }
 }

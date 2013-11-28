@@ -5,6 +5,7 @@ import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Date: 25.11.13
  * Time: 12:59
  *
- * Select-Statement: SELECT columnFilters FROM tableName WHERE whereCondition
+ * Select-Statement: SELECT columns FROM tableName WHERE whereCondition
  * columnFilters: Liste der Spaltennamen
  * tableName: Tabellennamen
  * whereCondition: Überprüfung ob in einer Spalte ein bestimmter Wert vorkommt
@@ -22,10 +23,10 @@ public class SelectStatement implements Statement {
 
     private final WhereCondition whereCondition;
     private String tableName;
-    private List<Object> columns;
+    private List<String> columns;
 
 
-    public SelectStatement(List<Object> columns, String tableName, WhereCondition whereCondition) {
+    public SelectStatement(List<String> columns, String tableName, WhereCondition whereCondition) {
         this.columns = columns;
         this.tableName = tableName;
         this.whereCondition = whereCondition;
@@ -35,7 +36,19 @@ public class SelectStatement implements Statement {
     public Result execute(Database database) throws DatabaseException {
         Table table = database.getTable(tableName);
 
+        List<Row> rows = new ArrayList<Row>();
 
+        for(Row tableRows : table.getRows()){
+            if(whereCondition.matches(tableRows)){
+                rows.add(tableRows);
+            }
+        }
+
+        for(int i = 0; i < rows.size(); i++)
+        {
+            ProjectionRow pjRow = database.getRowFactory().createProjection(i, rows.get(i));
+            pjRow.addProjection(columns.get(i));
+        }
 
         return table.getDatabase().getResultFactory().createSuccessResult();
     }
