@@ -2,6 +2,7 @@ package de.dhbw.blaaah.database;
 
 import de.dhbw.blaaah.exceptions.ColumnDefinedException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class TableDefinition {
      */
     public TableDefinition(String name) {
         this.name = name;
+        this.columns = new ArrayList<ColumnDefinition>();
     }
 
     /**

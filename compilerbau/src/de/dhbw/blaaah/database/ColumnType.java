@@ -45,7 +45,7 @@ public enum ColumnType {
                 try {
                     return DecimalFormat.getInstance().parse(value);
                 } catch (ParseException e) {
-                    return null;
+                    return 0;
                 }
 
             case DATE:

@@ -159,8 +159,8 @@ public class CSVTable implements Table {
             if (!found)
                 throw new InvalidRowException("Column " + columnName + " doesn't exist!");
         }
-        if (tableColumns.size() != row.getColumnNames().size())
-            throw new InvalidRowException("Different number of columns!");
+        if (tableColumns.size() < row.getColumnNames().size())
+            throw new InvalidRowException("Too many columns given!");
 
         // Spaltenüberprüfung abgeschlossen
 
@@ -332,6 +332,7 @@ public class CSVTable implements Table {
                     break;
                 case '\n':
                     if (!escape) {
+                        columns.add(currentColumn.toString());
                         // Zeile fertig
                         return columns;
                     } else {
@@ -398,7 +399,7 @@ public class CSVTable implements Table {
         if (values.size() != columns.size()) {
             return null;
         } else {
-            List<Object> realValues = new ArrayList<Object>(values);
+            List<Object> realValues = new ArrayList<Object>(values.size());
 
             for (int i = 0; i < values.size(); ++i) {
                 // Wert nehmen, umwandeln und zu den echten Werten hinzuf�gen
@@ -476,7 +477,11 @@ public class CSVTable implements Table {
         // Danach den Rest einfach kopieren
         while (true) {
             try {
-                tmpOutput.writeChars(accessFile.readLine());
+                String line = accessFile.readLine();
+                if (line != null)
+                    tmpOutput.writeChars(line);
+                else
+                    break;
                 // Newline-Zeichen werden nicht mitausgelesen und müssen erneut geschrieben werden
                 tmpOutput.writeChar('\n');
             } catch (EOFException ignored) {
@@ -489,6 +494,7 @@ public class CSVTable implements Table {
         accessFile.close();
 
         // Tabellendatei mit der temporären Datei überschreiben
+        tableFile.delete();
         Files.move(Paths.get(tmpFile.toURI()), Paths.get(tableFile.toURI()));
 
         // accessFile erneut öffnen
@@ -512,6 +518,10 @@ public class CSVTable implements Table {
             if (!first) {
                 output.writeChar(';');
             }
+
+            // Leere Spalten überspringen
+            if (value == null)
+                continue;
 
             String textRepr = value.toString();
             for (int i = 0; i < textRepr.length(); ++i) {

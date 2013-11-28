@@ -1,6 +1,7 @@
 package de.dhbw.blaaah.database.csv;
 
 import de.dhbw.blaaah.Database;
+import de.dhbw.blaaah.Row;
 import de.dhbw.blaaah.Table;
 import de.dhbw.blaaah.database.ColumnType;
 import de.dhbw.blaaah.database.TableDefinition;
@@ -18,21 +19,29 @@ public class CSVTest {
     public static void main(String[] args) throws Exception {
         Database database = new CSVDatabase("./TestDb");
 
-        TableDefinition testTableDef = new TableDefinition("Test");
-        testTableDef.addColumn("Name", ColumnType.TEXT);
-        testTableDef.addColumn("Mail", ColumnType.TEXT);
-        testTableDef.addColumn("Age", ColumnType.NUMBER);
-        testTableDef.addColumn("DateOfBirth", ColumnType.DATE);
+        if (database.getTable("Test") == null) {
+            TableDefinition testTableDef = new TableDefinition("Test");
+            testTableDef.addColumn("Name", ColumnType.TEXT);
+            testTableDef.addColumn("Mail", ColumnType.TEXT);
+            testTableDef.addColumn("Age", ColumnType.NUMBER);
+            testTableDef.addColumn("DateOfBirth", ColumnType.DATE);
 
-        if (database.createTable(testTableDef).isSuccess())
-            System.out.println("Tabelle Test erstellt.");
-        else
-            System.out.println("Tabelle Test nicht erstellt.");
+            if (database.createTable(testTableDef).isSuccess())
+                System.out.println("Tabelle Test erstellt.");
+            else
+                System.out.println("Tabelle Test nicht erstellt.");
+        }
 
         Table table = database.getTable("Test");
 
+        Row row = table.getRow(0);
+        if (row != null)
+            System.out.println(row.toString());
+
         table.addRow(database.getRowFactory().createRow(-1, toList("Name", "Mail"), toList("Testname", "test@example.com")));
         table.addRow(database.getRowFactory().createRow(-1, toList("Name", "Mail"), toList("Foo", "Bar")));
+
+        database.save();
     }
 
     public static <T> List<T> toList(T... values) {

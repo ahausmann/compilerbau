@@ -34,6 +34,9 @@ public class CSVDatabase implements Database {
 
     public CSVDatabase(File basePath) {
         this.basePath = basePath;
+        // Verzeichnis erstellen
+        if (!this.basePath.exists() && !this.basePath.mkdirs())
+            throw new IllegalStateException("Couldn't access the database.");
 
         this.tables = new HashMap<String, CSVTable>();
 
@@ -127,7 +130,7 @@ public class CSVDatabase implements Database {
 
     @Override
     public RowFactory getRowFactory() {
-        return null;
+        return RowFactory.getDefault();
     }
 
     protected void loadAllTables() {
