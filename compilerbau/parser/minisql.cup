@@ -4,11 +4,13 @@ package de.dhbw.blaaah.parser;
 import java_cup.runtime.*;
 import java.util.*;
 import de.dhbw.blaaah.*;
+import de.dhbw.blaaah.statements.*;
+import de.dhbw.blaaah.database.*;
 
 parser code {:
     public static Symbol parse(java.io.InputStream inputStream) throws Exception {
         SymbolFactory factory = new DefaultSymbolFactory();
-        return new Parser(new MiniSqlScanner(inputStream, factory), factory).parse();
+        return new MiniSqlParser(new MiniSqlScanner(inputStream, factory), factory).parse();
     }
 :}
 
@@ -32,7 +34,7 @@ statement_list ::= statement_list:list statement:st
                     | statement:st
                     {:
                         List<Statement> tmp = new ArrayList<Statement>();
-                        tmp.add(st);
+                        tmp.add((Statement)st);
                         RESULT = tmp;
                     :};
 
@@ -45,7 +47,7 @@ statement ::= insert_statement:s {: RESULT = s; :}
 
 insert_statement ::= INSERT INTO NAME:table LEFT_PARENTHESIS name_list:columns RIGHT_PARENTHESIS VALUES row_list:values SEMICOLON
                 {:
-                    RESULT = new InsertStatement(table, columns, values);
+                    RESULT = new InsertStatement((String)table, (List<String>)columns, (List<List<String>>)values);
                 :};
 
 name_list ::= name_list:list COMMA NAME:name
@@ -56,32 +58,32 @@ name_list ::= name_list:list COMMA NAME:name
                 | NAME:name
                 {:
                     List<String> tmp = new ArrayList<String>();
-                    tmp.add(name);
+                    tmp.add((String)name);
                     RESULT = tmp;
                 :};
 
 row_list ::= row_list:list COMMA LEFT_PARENTHESIS value_list:row RIGHT_PARENTHESIS
                 {:
-                    ((List<List<String>>)list).add(row);
+                    ((List<List<String>>)list).add((List<String>)row);
                     RESULT = list;
                 :}
                 | LEFT_PARENTHESIS value_list:row RIGHT_PARENTHESIS
                 {:
                     List<List<String>> tmp = new ArrayList<List<String>>();
-                    tmp.add(row);
+                    tmp.add((List<String>)row);
                     RESULT = tmp;
                 :};
 
 value_list  ::= value_list:list COMMA VALUE:value
 
                {:
-                   ((List<String>)list.add((String)value;
+                   ((List<String>)list).add((String)value);
                    RESULT = list;
                :}
                | VALUE:value
                {:
                     List<String> tmp = new ArrayList<String>();
-                    tmp.add(value);
+                    tmp.add((String)value);
                     RESULT = tmp;
                :};
 
@@ -103,12 +105,12 @@ select_list ::= select_list:list COMMA NAME:name
                 | NAME:name
                 {:
                     List<String> tmp = new ArrayList<String>();
-                    tmp.add(name);
+                    tmp.add((String)name);
                     RESULT = tmp;
                 :}
                 select_list:list COMMA STAR
                 {:
-                    ((List<String>)list).add((String)"*");
+                    ((List<String>)list).add("*");
                     RESULT = list;
                 :}
                 | STAR
@@ -121,7 +123,7 @@ select_list ::= select_list:list COMMA NAME:name
 
 create_statement ::= CREATE TABLE NAME:table LEFT_PARENTHESIS create_list:create RIGHT_PARENTHESIS SEMICOLON
                {:
-                    RESULT = new CreateStatement();
+                    RESULT = new CreateTableStatement();
                :};
 
 typ ::= NUMBER
@@ -139,13 +141,13 @@ typ ::= NUMBER
 
 create_list ::= create_list:list COMMA NAME:name typ:typ
                {:
-                    ((List<ColumnDefinition>)list).add(new ColumnDefinition(name, typ));
+                    ((List<ColumnDefinition>)list).add(new ColumnDefinition((String)name, (String)typ));
                     RESULT = list;
                :}
                | NAME:name typ:typ
                {:
                     List<ColumnDefinition> tmp = new ArrayList<ColumnDefinition>();
-                    tmp.add(new ColumnDefinition(name, typ));
+                    tmp.add(new ColumnDefinition((String)name, (String)typ));
                     RESULT = tmp;
                :};
 
@@ -169,5 +171,5 @@ delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
 
 drop_statement ::= DROP TABLE NAME:table SEMICOLON
                {:
-                    RESULT = new DropStatement();
+                    RESULT = new DropTableStatement();
                :};
