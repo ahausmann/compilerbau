@@ -82,13 +82,13 @@ value_list  ::= value_list:list COMMA VALUE:value
                :};
 
 select_statement ::= SELECT select_list:select FROM NAME:table SEMICOLON
-               :{
-                    RESULT new SelectStatement();
+               {:
+                    RESULT = new SelectStatement();
                :}
                |
                     SELECT select_list:select FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
-               :{
-                    RESULT new SelectStatement();
+               {:
+                    RESULT = new SelectStatement();
                :};
 
 select_list ::= select_list:list COMMA NAME:name
@@ -116,41 +116,41 @@ select_list ::= select_list:list COMMA NAME:name
 
 
 create_statement ::= CREATE TABLE NAME:table LEFT_PARENTHESIS create_list:create RIGHT_PARENTHESIS SEMICOLON
-               :{
-                    RESULT new CreateStatement();
+               {:
+                    RESULT = new CreateStatement();
                :};
 
 create_list ::= create_list:list COMMA NAME:name TYP:typ
-               :{
+               {:
                     ((List<ColumnDefinition>)list).add(new ColumnDefinition(name, typ));
                     RESULT = list;
                :}
                | NAME:name TYP:typ
-               :{
+               {:
                     List<ColumnDefinition> tmp = new ArrayList<ColumnDefinition>();
                     tmp.add(new ColumnDefinition(name, typ));
                     RESULT = tmp;
                :}
 
 update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
-               :{
-                    RESULT new UpdateStatement();
+               {:
+                    RESULT = new UpdateStatement();
                :}
                | UPDATE NAME:table SET NAME:name EQUAL VALUE:value WHERE NAME:index EQUAL VALUE:indexv
-               :{
-                    RESULT new UpdateStatement();
+               {:
+                    RESULT = new UpdateStatement();
                :};
 
 delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
-               :{
-                    RESULT new DeleteStatement();
+               {:
+                    RESULT = new DeleteStatement();
                :}
                | DELETE delete_list:delete FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
-               :{
-                    RESULT new DeleteStatement();
+               {:
+                    RESULT = new DeleteStatement();
                :};
 
 drop_statement ::= DROP TABLE NAME:table SEMICOLON
-               :{
-                    RESULT new DropStatement();
+               {:
+                    RESULT = new DropStatement();
                :};
