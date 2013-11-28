@@ -18,6 +18,8 @@ public interface ProjectionRow extends Row {
      */
     List<String> getSourceColumnNames();
 
+    void addProjection(String columnName);
+
     /**
      * Fügt die Projektion einer Spalte nach der letzten Ergebnisspalte ein.
      *
