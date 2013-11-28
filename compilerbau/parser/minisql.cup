@@ -4,20 +4,19 @@ package de.dhbw.blaaah.parser;
 import java_cup.runtime.*;
 import java.util.*;
 import de.dhbw.blaaah.*;
-import de.dhbw.blaaah.statements.*;
 
 parser code {:
     public static Symbol parse(java.io.InputStream inputStream) throws Exception {
         SymbolFactory factory = new DefaultSymbolFactory();
-        return new MiniSqlParser(new MiniSqlScanner(inputStream, factory), factory).parse();
+        return new Parser(new MiniSqlScanner(inputStream, factory), factory).parse();
     }
 :}
 
-terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET, VALUES;
+terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET, DELETE;
 
 terminal COMMA, NAME, VALUE, STAR, SEMICOLON, EQUAL, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
 
-non terminal statement_list, statement, create_statement, select_statement, insert_statement, update_statement;
+non terminal statement_list, statement, create_statement, select_statement, insert_statement, update_statement, delete_statement;
 
 non terminal name_list, value_list;
 
@@ -36,9 +35,10 @@ statement_list ::= statement_list:list statement:st
 statement ::= insert_statement:s {: RESULT = s; :}
         | select_statement:s {: RESULT = s; :}
         | create_statement:s {: RESULT = s; :}
-        | update_statement:s {: RESULT = s; :} ;
+        | update_statement:s {: RESULT = s; :}
+        | delete_statement:s {: RESULT = s; :};
 
-insert_statement ::= INSERT INTO NAME:table LEFT_PARENTHESIS name_list:columns RIGHT_PARENTHESIS VALUES LEFT_PARENTHESIS value_list:values RIGHT_PARENTHESIS SEMICOLON
+insert_statement ::= INSERT INTO NAME:table LEFT_PARENTHESIS name_list:columns RIGHT_PARENTHESIS VALUES row_list:values SEMICOLON
                 {:
                     RESULT = new InsertStatement(table, columns, values);
                 :};
@@ -55,3 +55,47 @@ name_list ::= name_list:list COMMA NAME:name
                     RESULT = tmp;
                 :};
 
+row_list ::= row_list:list COMMA LEFT_PARENTHESIS value_list:row RIGHT_PARENTHESIS
+                {:
+                    ((List<List<String>>)list).add(row);
+                    RESULT = list;
+                :}
+                | LEFT_PARENTHESIS value_list:row RIGHT_PARENTHESIS
+                {:
+                    List<List<String>> tmp = new ArrayList<List<String>>();
+                    tmp.add(row);
+                    RESULT = tmp;
+                :};
+
+value_list  ::= value_list:list COMMA VALUE:value
+
+               {:
+                   ((List<String>)list.add((String)value;
+                   RESULT = list;
+               :}
+               | VALUE:value
+               {:
+                    List<String> tmp = new ArrayList<String>();
+                    tmp.add(value);
+                    RESULT = tmp;
+               :};
+
+select_statement ::= SELECT STAR FROM ... SEMICOLON
+               :{
+                    RESULT new SelectStatement();
+               :};
+
+create_statement ::= CREATE TABLE NAME:table ... SEMICOLON
+               :{
+                    RESULT new CreateStatement();
+               :};
+
+update_statement ::= UPDATE NAME:table ... SEMICOLON
+               :{
+                    RESULT new UpdateStatement();
+               :};
+
+delete_statement ::= DELETE STAR FROM NAME:table ... SEMICOLON
+               :{
+                    RESULT new DeleteStatement();
+               :};
