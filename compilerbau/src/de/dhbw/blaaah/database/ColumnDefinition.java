@@ -10,6 +10,11 @@ public class ColumnDefinition {
 
     private ColumnType type;
 
+    public ColumnDefinition(String name, String type) {
+        this.name = name;
+        this.type = ColumnType.valueOf(type);
+    }
+
     public ColumnDefinition(String name, ColumnType type) {
         this.name = name;
         this.type = type;
