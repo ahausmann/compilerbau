@@ -12,11 +12,11 @@ parser code {:
     }
 :}
 
-terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET, DELETE;
+terminal SELECT, FROM, CREATE, TABLE, INSERT, INTO, UPDATE, SET, DELETE, DROP;
 
 terminal COMMA, NAME, VALUE, STAR, SEMICOLON, EQUAL, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
 
-non terminal statement_list, statement, create_statement, select_statement, insert_statement, update_statement, delete_statement;
+non terminal statement_list, statement, create_statement, select_statement, insert_statement, update_statement, delete_statement, drop_statement;
 
 non terminal name_list, value_list;
 
