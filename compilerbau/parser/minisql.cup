@@ -154,11 +154,11 @@ create_list ::= create_list:list COMMA NAME:name typ:typ
 
 update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
                {:
-                    RESULT = new UpdateStatement();
+                    RESULT = new UpdateStatement(table, name, value, new AlwaysTrueCondition());
                :}
-               | UPDATE NAME:table SET NAME:name EQUAL VALUE:value WHERE NAME:index EQUAL VALUE:indexv
+               | UPDATE NAME:table SET NAME:name EQUAL VALUE:value WHERE NAME:column EQUAL VALUE:columnv
                {:
-                    RESULT = new UpdateStatement();
+                    RESULT = new UpdateStatement(table, name, value, new EqualsCondition(column, columnv));
                :};
 
 delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
