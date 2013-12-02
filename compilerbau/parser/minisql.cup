@@ -124,7 +124,7 @@ select_list ::= select_list:list COMMA NAME:name
 
 create_statement ::= CREATE TABLE NAME:table LEFT_PARENTHESIS create_list:create RIGHT_PARENTHESIS SEMICOLON
                {:
-                    RESULT = new CreateTableStatement();
+                    RESULT = new CreateTableStatement(create, table);
                :};
 
 typ ::= NUMBER

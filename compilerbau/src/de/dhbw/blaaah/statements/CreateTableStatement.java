@@ -4,6 +4,7 @@ import de.dhbw.blaaah.Database;
 import de.dhbw.blaaah.Result;
 import de.dhbw.blaaah.Statement;
 import de.dhbw.blaaah.WhereCondition;
+import de.dhbw.blaaah.database.ColumnDefinition;
 import de.dhbw.blaaah.database.ColumnType;
 import de.dhbw.blaaah.database.TableDefinition;
 import de.dhbw.blaaah.exceptions.ColumnDefinedException;
@@ -22,25 +23,24 @@ import java.util.List;
  */
 public class CreateTableStatement implements Statement {
 
-    List<String> columns;
+    List<ColumnDefinition> columns;
     String tableName;
-    WhereCondition whereCondition;
 
-    public CreateTableStatement(List<String> columns, String tableName, WhereCondition whereCondition){
+    public CreateTableStatement(List<ColumnDefinition> columns, String tableName){
         this.columns = columns;
         this.tableName = tableName;
-        this.whereCondition = whereCondition;
     }
     @Override
     public Result execute(Database database) throws DatabaseException {
         TableDefinition tableDefinition = new TableDefinition(tableName);
         ColumnType cT = ColumnType.TEXT;
 
-        for(int i = 0; i < columns.size(); i++){
+        for (ColumnDefinition column : columns) {
             try {
-                tableDefinition.addColumn(columns.get(i), cT);
+                tableDefinition.addColumn(column.getName(), column.getType());
             } catch (ColumnDefinedException e) {
                 e.printStackTrace();
+                return database.getResultFactory().createErrorResult("Multiple defined column.");
             }
         }
 
