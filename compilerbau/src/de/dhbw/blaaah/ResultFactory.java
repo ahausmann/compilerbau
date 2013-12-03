@@ -1,12 +1,14 @@
 package de.dhbw.blaaah;
 
+import de.dhbw.blaaah.factories.DefaultResultFactory;
+
 /**
  * User: alexander
  * Date: 23.11.13
  * Time: 11:04
  */
 public abstract class ResultFactory {
-    private static ResultFactory defaultFactory;
+    private static ResultFactory defaultFactory = new DefaultResultFactory();
 
     /**
      * Gibt das Standardobjekt zurück, mit dem Ergebnisse erzeugt werden können.

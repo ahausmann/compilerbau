@@ -5,6 +5,7 @@ import de.dhbw.blaaah.ResultFactory;
 import de.dhbw.blaaah.Row;
 import de.dhbw.blaaah.results.AbstractResult;
 import de.dhbw.blaaah.results.ErrorResult;
+import de.dhbw.blaaah.results.RowResult;
 import de.dhbw.blaaah.results.SuccessResult;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -26,8 +27,7 @@ public class DefaultResultFactory extends ResultFactory {
 
     @Override
     public Result createRowResult(Iterable<Row> rows) {
-        // TODO: Ergebnisklasse für Zeilenergebnisse
-        throw new NotImplementedException();
+        return new RowResult(rows);
     }
 
     @Override

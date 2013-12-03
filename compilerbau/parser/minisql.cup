@@ -78,13 +78,13 @@ row_list ::= row_list:list COMMA LEFT_PARENTHESIS value_list:row RIGHT_PARENTHES
 value_list  ::= value_list:list COMMA VALUE:value
 
                {:
-                   ((List<String>)list).add((String)value);
+                   ((List<String>)list).add(ParserUtil.value((String)value));
                    RESULT = list;
                :}
                | VALUE:value
                {:
                     List<String> tmp = new ArrayList<String>();
-                    tmp.add((String)value);
+                    tmp.add(ParserUtil.value((String)value));
                     RESULT = tmp;
                :};
 
@@ -95,7 +95,7 @@ select_statement ::= SELECT select_list:select FROM NAME:table SEMICOLON
                |
                     SELECT select_list:select FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
                {:
-                    RESULT = new SelectStatement((List<String>)select, (String)table, new EqualsCondition((String)name, (String)value));
+                    RESULT = new SelectStatement((List<String>)select, (String)table, new EqualsCondition((String)name, ParserUtil.value((String)value)));
                :};
 
 select_list ::= select_list:list COMMA NAME:name
@@ -124,7 +124,7 @@ select_list ::= select_list:list COMMA NAME:name
 
 create_statement ::= CREATE TABLE NAME:table LEFT_PARENTHESIS create_list:create RIGHT_PARENTHESIS SEMICOLON
                {:
-                    RESULT = new CreateTableStatement(create, table);
+                    RESULT = new CreateTableStatement((List<ColumnDefinition>)create, (String)table);
                :};
 
 typ ::= NUMBER
@@ -154,11 +154,11 @@ create_list ::= create_list:list COMMA NAME:name typ:typ
 
 update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
                {:
-                    RESULT = new UpdateStatement(table, name, value, new AlwaysTrueCondition());
+                    RESULT = new UpdateStatement((String)table, (String)name, ParserUtil.value((String)value), new AlwaysTrueCondition());
                :}
                | UPDATE NAME:table SET NAME:name EQUAL VALUE:value WHERE NAME:column EQUAL VALUE:columnv
                {:
-                    RESULT = new UpdateStatement(table, name, value, new EqualsCondition(column, columnv));
+                    RESULT = new UpdateStatement((String)table, (String)name, ParserUtil.value((String)value), new EqualsCondition((String)column, ParserUtil.value((String)columnv)));
                :};
 
 delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
@@ -167,7 +167,7 @@ delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
                :}
                | DELETE STAR FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
                {:
-                    RESULT = new DeleteStatement((String)table, new EqualsCondition((String)name, (String)value));
+                    RESULT = new DeleteStatement((String)table, new EqualsCondition((String)name, ParserUtil.value((String)value)));
                :};
 
 drop_statement ::= DROP TABLE NAME:table SEMICOLON

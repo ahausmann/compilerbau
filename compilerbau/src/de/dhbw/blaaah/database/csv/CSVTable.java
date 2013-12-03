@@ -24,27 +24,22 @@ public class CSVTable implements Table {
      * Referenz auf die Datenbank, zu der diese Tabelle gehört.
      */
     protected final CSVDatabase database;
-
     /**
      * Die Tabellendatei. Aus dem Dateinamen wird der Tabellenname abgeleitet.
      */
     protected final File tableFile;
-
     /**
      * Spalten in dieser Tabelle
      */
     protected final List<ColumnDefinition> columns;
-
     /**
      * Zeilen, die aus der Tabellendatei gelesen wurden; Zeilenindex -> Zeile/null
      */
     protected final Map<Integer, Row> loadedRows;
-
     /**
      * Zugriffsdatei, mit der aus der Tabellendatei gelesen wird
      */
     protected RandomAccessFile accessFile;
-
     /**
      * Zeilenzähler, der den Index der nächsten Zeile angibt
      */
@@ -77,8 +72,8 @@ public class CSVTable implements Table {
      * Legt eine neue Tabelle an.
      *
      * @param tableFile Die Datei, in der die Tabelle gespeichert wird.
-     * @param database Die Datenbank, zu der die Tabelle gehört.
-     * @param columns Die Spalten, die in der Tabelle vorhanden sein sollen
+     * @param database  Die Datenbank, zu der die Tabelle gehört.
+     * @param columns   Die Spalten, die in der Tabelle vorhanden sein sollen
      */
     public CSVTable(File tableFile, CSVDatabase database, List<ColumnDefinition> columns) {
         this.tableFile = tableFile;
@@ -302,50 +297,19 @@ public class CSVTable implements Table {
      */
     protected List<String> readCsvLine(DataInput input) throws IOException {
         List<String> columns = new ArrayList<String>();
-        StringBuilder currentColumn = new StringBuilder();
         boolean escape = false;
 
         while (true) {
-            char current;
-            current = input.readChar();
-            switch (current) {
-                case '\0':
-                    // NUL-Zeichen werden immer übersprungen, da diese nicht in normalen Text vorkommen
-                    // (BLOBs werden nicht binär, sondern hexadezimal gespeichert)
-                    break;
-                case '\\':
-                    if (!escape) {
-                        escape = true;
-                    } else {
-                        currentColumn.append(current);
-                        escape = false;
-                    }
-                    break;
-                case ';':
-                    if (!escape) {
-                        columns.add(currentColumn.toString());
-                        currentColumn = new StringBuilder();
-                    } else {
-                        currentColumn.append(current);
-                        escape = false;
-                    }
-                    break;
-                case '\n':
-                    if (!escape) {
-                        columns.add(currentColumn.toString());
-                        // Zeile fertig
-                        return columns;
-                    } else {
-                        currentColumn.append(current);
-                        escape = false;
-                    }
-                    break;
-                default:
-                    currentColumn.append(current);
-                    escape = false;
-                    break;
+
+            String column = input.readUTF();
+            columns.add(column);
+
+            if (input.readChar() == '\n') {
+                break;
             }
         }
+
+        return columns;
     }
 
     /**
@@ -359,18 +323,10 @@ public class CSVTable implements Table {
         char current;
 
         do {
-            current = input.readChar();
-
-            if (current == '\\') {
-                escape = !escape;
-            } else if (current == '\n') {
-                if (escape) {
-                    escape = false;
-                } else {
-                    count--;
-                }
-
-            }
+            input.readUTF();
+            char c = input.readChar();
+            if (c == '\n')
+                count--;
         } while (count > 0);
     }
 
@@ -428,8 +384,6 @@ public class CSVTable implements Table {
      * vorliegen.
      */
     protected void sync() throws IOException {
-        // TODO: sync()-Implementierung schreiben
-
         List<Integer> indices = new ArrayList<Integer>(loadedRows.keySet());
         Collections.sort(indices);
 
@@ -443,7 +397,7 @@ public class CSVTable implements Table {
         // In der Tabellendatei an den Anfang gehen
         accessFile.seek(0);
 
-        int lastRowIndex = 0;
+        int lastRowIndex = -1;
 
         for (int index : indices) {
             Row row = loadedRows.get(index);
@@ -472,23 +426,20 @@ public class CSVTable implements Table {
         // accessFile ist an der Position der letzten gelesenen Zeile
         // jetzt muss 1 Zeile übersprungen werden, um die letzte geschriebene Zeile zu überspringen
 
-        skipLines(accessFile, 1);
+        try {
+            skipLines(accessFile, 1);
 
-        // Danach den Rest einfach kopieren
-        while (true) {
-            try {
-                String line = accessFile.readLine();
-                if (line != null)
-                    tmpOutput.writeChars(line);
+            byte[] buffer = new byte[4096];
+            while (true) {
+                int read = accessFile.read(buffer);
+                if (read > 0)
+                    tmpOutput.write(buffer, 0, read);
                 else
                     break;
-                // Newline-Zeichen werden nicht mitausgelesen und müssen erneut geschrieben werden
-                tmpOutput.writeChar('\n');
-            } catch (EOFException ignored) {
-                break;
             }
+        } catch (EOFException ignored) {
+            // Schon am Ende der Tabellendatei, daher nichts mehr zu kopieren
         }
-
         // Alle Dateien schließen
         tmpOutput.close();
         accessFile.close();
@@ -523,23 +474,7 @@ public class CSVTable implements Table {
             if (value == null)
                 continue;
 
-            String textRepr = value.toString();
-            for (int i = 0; i < textRepr.length(); ++i) {
-                char c = textRepr.charAt(i);
-
-                switch (c) {
-                    case '\n':
-                    case ';':
-                    case '\\':
-                        output.writeChar('\\');
-                        output.writeChar(c);
-                        break;
-                    default:
-                        output.writeChar(c);
-                        break;
-                }
-            }
-
+            output.writeUTF(value.toString());
             first = false;
         }
 

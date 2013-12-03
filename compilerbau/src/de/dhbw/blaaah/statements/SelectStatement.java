@@ -1,6 +1,7 @@
 package de.dhbw.blaaah.statements;
 
 import de.dhbw.blaaah.*;
+import de.dhbw.blaaah.database.ColumnDefinition;
 import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -36,6 +37,17 @@ public class SelectStatement implements Statement {
     public Result execute(Database database) throws DatabaseException {
         Table table = database.getTable(tableName);
 
+        List<String> realColumns = new ArrayList<String>();
+        for (String column : columns) {
+            if (column.equals("*")) {
+                for (ColumnDefinition columnDef : table.getColumns()) {
+                    realColumns.add(columnDef.getName());
+                }
+            } else {
+                realColumns.add(column);
+            }
+        }
+
         List<Row> rows = new ArrayList<Row>();
 
         for(Row tableRows : table.getRows()){
@@ -47,9 +59,13 @@ public class SelectStatement implements Statement {
         for(int i = 0; i < rows.size(); i++)
         {
             ProjectionRow pjRow = database.getRowFactory().createProjection(i, rows.get(i));
-            pjRow.addProjection(columns.get(i));
+            for (String realColumn : realColumns) {
+                pjRow.addProjection(realColumn);
+            }
+            // Zeile durch Projektion ersetzen
+            rows.set(i, pjRow);
         }
 
-        return table.getDatabase().getResultFactory().createSuccessResult();
+        return database.getResultFactory().createRowResult(rows);
     }
 }
