@@ -291,16 +291,19 @@ public class CSVTable implements Table {
      */
     protected List<String> readCsvLine(DataInput input) throws IOException {
         List<String> columns = new ArrayList<String>();
-        boolean escape = false;
 
-        while (true) {
+        try {
+            while (true) {
 
-            String column = input.readUTF();
-            columns.add(column);
+                String column = input.readUTF();
+                columns.add(column);
 
-            if (input.readChar() == '\n') {
-                break;
+                if (input.readChar() == '\n') {
+                    break;
+                }
             }
+        } catch (EOFException ignored) {
+            return columns;
         }
 
         return columns;

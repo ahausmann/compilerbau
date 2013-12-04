@@ -8,11 +8,6 @@ import de.dhbw.blaaah.Row;
  */
 public abstract class AbstractRow implements Row {
     @Override
-    public boolean hasColumn(String name) {
-        return getColumnNames().indexOf(name) != -1;
-    }
-
-    @Override
     public Object getColumn(String name) {
         int index = getColumnNames().indexOf(name);
         if (index >= 0)
