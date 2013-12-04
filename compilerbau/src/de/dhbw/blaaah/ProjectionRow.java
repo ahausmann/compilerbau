@@ -1,24 +1,58 @@
 package de.dhbw.blaaah;
 
+import de.dhbw.blaaah.database.AbstractRow;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Diese Schnittstelle wird verwendet, um Projektionen zu erstellen.
- *
- * Wenn eine Klasse diese Schnittstelle implementiert, so geben die Methoden {@link de.dhbw.blaaah.Row#getColumnNames()} und
- * {@link de.dhbw.blaaah.Row#getValues()} nach der Erstellung leere Listen zurück. Diese Listen lassen sich nun befüllen, indem
- * die Methode {@link ProjectionRow#addProjection(String,String)} aufgerufen wird und die Projektionen angefügt werden.
+ * Diese Klasse wird verwendet, um Projektionen in SELECT-Anweisungen darzustellen.
  */
-public interface ProjectionRow extends Row {
+public class ProjectionRow extends AbstractRow {
+    private final Row row;
+    private final int rowIndex;
+    private final ArrayList<String> columns;
+    private final ArrayList<Object> values;
+
+    public ProjectionRow(int rowIndex, Row row) {
+        this.rowIndex = rowIndex;
+        this.row = row;
+        this.columns = new ArrayList<String>();
+        this.values = new ArrayList<Object>();
+    }
+
+    @Override
+    public int getRowIndex() {
+        return rowIndex;
+    }
+
+    @Override
+    public List<String> getColumnNames() {
+        return Collections.unmodifiableList(columns);
+    }
+
+    @Override
+    public List<Object> getValues() {
+        return Collections.unmodifiableList(values);
+    }
 
     /**
      * Gibt die originalen Spaltennamen zurück.
      *
      * @return Liste der Spaltennamen der originalen Zeile.
      */
-    List<String> getSourceColumnNames();
+    public List<String> getSourceColumnNames() {
+        return this.row.getColumnNames();
+    }
 
-    void addProjection(String columnName);
+    /**
+     * Fügt eine Projektion hinzu. Ein Aufruf dieser Methode entspricht dem Aufruf {@code addProjection(columnName, columnName)}.
+     * @param columnName Spaltenname, der hinzugefügt werden soll
+     */
+    public void addProjection(String columnName) {
+        addProjection(columnName, columnName);
+    }
 
     /**
      * Fügt die Projektion einer Spalte nach der letzten Ergebnisspalte ein.
@@ -26,5 +60,9 @@ public interface ProjectionRow extends Row {
      * @param columnName Originalspaltenname, der hinzugefügt werden soll.
      * @param outputName Ausgabespaltenname der Spalte
      */
-    void addProjection(String columnName, String outputName);
+    public void addProjection(String columnName, String outputName) {
+        Object value = row.getColumn(columnName);
+        columns.add(outputName);
+        values.add(value);
+    }
 }

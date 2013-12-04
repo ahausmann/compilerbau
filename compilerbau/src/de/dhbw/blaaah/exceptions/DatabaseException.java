@@ -1,9 +1,7 @@
 package de.dhbw.blaaah.exceptions;
 
 /**
- * User: alexander
- * Date: 21.11.13
- * Time: 15:46
+ * Basisklasse für Ausnahmen in der Datenbank.
  */
 public class DatabaseException extends Exception {
     public DatabaseException() {

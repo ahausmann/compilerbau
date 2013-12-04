@@ -1,11 +1,8 @@
 package de.dhbw.blaaah.exceptions;
 
 /**
- * Author: Alexander Hausmann <hausmann.alex@gmail.com>
- * User: alexander
- * Creation date: 21.11.13 - 13:47
- * <p/>
- * Diese Ausnahme wird geworfen, wenn eine Zeile ungültige Werte enthält.
+ * Diese Ausnahme kann beim Hinzufügen von neuen Zeilen geworfen werden, falls eine Zeile ungültige Werte enthält, die
+ * nicht mit den Datentypen der Spalten übereinstimmt.
  */
 public class InvalidRowException extends DatabaseException {
     public InvalidRowException() {

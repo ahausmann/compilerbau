@@ -3,9 +3,7 @@ package de.dhbw.blaaah;
 import java.util.List;
 
 /**
- * Author: Alexander Hausmann <hausmann.alex@gmail.com>
- * User: alexander
- * Creation date: 21.11.13 - 13:33
+ * Diese Schnittstelle dient zur Abstraktion von Tabellenzeilen.
  */
 public interface Row {
     /**
@@ -14,15 +12,6 @@ public interface Row {
      * @return Index der Zeile
      */
     int getRowIndex();
-
-    /**
-     * Überprüft, ob eine Spalte mit dem angegebenen Namen existiert.
-     *
-     * @param name Name der Spalte
-     * @return {@value true}, wenn es eine Spalte mit dem Namen gibt.
-     */
-    @Deprecated
-    boolean hasColumn(String name);
 
     /**
      * Sucht nach einer Spalte mit dem übergebenen Namen und gibt den Wert der ersten gefundenen zurück.

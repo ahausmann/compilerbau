@@ -10,9 +10,8 @@ import de.dhbw.blaaah.results.SuccessResult;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- * User: alexander
- * Date: 25.11.13
- * Time: 10:44
+ * Implementierung der abstrakten Klasse {@link ResultFactory}. Dies erzeugt Standardobjekte, die unabhängig
+ * von einer Datenbank verwendet werden können.
  */
 public class DefaultResultFactory extends ResultFactory {
     @Override

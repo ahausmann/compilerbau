@@ -1,10 +1,6 @@
 package de.dhbw.blaaah.exceptions;
 
 /**
- * Author: Alexander Hausmann <hausmann.alex@gmail.com>
- * User: alexander
- * Creation date: 21.11.13 - 13:37
- * <p/>
  * Diese Ausnahme wird geworfen, wenn eine Tabelle nicht exisitiert, aber Werte daraus gelesen
  * werden sollen bzw. Zeilen geändert werden sollen.
  */

@@ -3,10 +3,6 @@ package de.dhbw.blaaah;
 import java.util.Date;
 
 /**
- * Author: Alexander Hausmann <hausmann.alex@gmail.com>
- * User: alexander
- * Creation date: 21.11.13 - 13:32
- *
  * Diese Schnittstelle definiert die Methoden, mit der auf ein Ergebnis eines Befehls zugegriffen werden kann.
  */
 public interface Result extends Iterable<Row> {

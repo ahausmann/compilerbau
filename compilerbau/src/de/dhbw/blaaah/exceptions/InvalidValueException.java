@@ -1,9 +1,8 @@
 package de.dhbw.blaaah.exceptions;
 
 /**
- * User: alexander
- * Date: 27.11.13
- * Time: 10:11
+ * Diese Ausnahme wird geworfen, wenn beim Ändern einer Zelle in einer Tabelle ein Wert gesetzt werden soll, der
+ * nicht mit der Spaltendefinition übereinstimmt.
  */
 public class InvalidValueException extends DatabaseException {
     public InvalidValueException() {

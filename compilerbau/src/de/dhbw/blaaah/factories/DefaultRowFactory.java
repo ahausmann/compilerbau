@@ -3,7 +3,6 @@ package de.dhbw.blaaah.factories;
 import de.dhbw.blaaah.ProjectionRow;
 import de.dhbw.blaaah.Row;
 import de.dhbw.blaaah.RowFactory;
-import de.dhbw.blaaah.database.DefaultProjectionRow;
 import de.dhbw.blaaah.database.DefaultRow;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class DefaultRowFactory extends RowFactory {
 
     @Override
     public ProjectionRow createProjection(int index, Row original) {
-        return new DefaultProjectionRow(index, original);
+        return new ProjectionRow(index, original);
     }
 
     @Override

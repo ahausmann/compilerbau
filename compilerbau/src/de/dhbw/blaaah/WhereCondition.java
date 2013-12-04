@@ -1,15 +1,13 @@
 package de.dhbw.blaaah;
 
 /**
- * User: alexander
- * Date: 25.11.13
- * Time: 13:38
+ * Diese Schnittstelle wird verwendet, um WHERE-Klauseln einheitlich verarbeiten zu kÃ¶nnen.
  */
 public interface WhereCondition {
     /**
-     * Überprüft, ob die Zeile auf die Bedingung zutrifft.
-     * @param row Die Zeile, die überprüft werden soll.
-     * @return {@value true}, falls die Zeile die Bedingung erfüllt, sonst {@value false}
+     * ÃœberprÃ¼ft, ob die Zeile auf die Bedingung zutrifft.
+     * @param row Die Zeile, die Ã¼berprÃ¼ft werden soll.
+     * @return {@value true}, falls die Zeile die Bedingung erfÃ¼llt, sonst {@value false}
      */
     boolean matches(Row row);
 }

@@ -5,9 +5,8 @@ import de.dhbw.blaaah.database.TableDefinition;
 import java.util.Date;
 
 /**
- * Author: Alexander Hausmann <hausmann.alex@gmail.com>
- * User: alexander
- * Creation date: 21.11.13 - 13:26
+ * Diese Schnittstelle wird verwendet, um auf eine spezifische Datenbank zuzugreifen. Dabei ist von außen
+ * nicht erkennbar, welches Datenformat verwendet wird.
  */
 public interface Database {
     /**

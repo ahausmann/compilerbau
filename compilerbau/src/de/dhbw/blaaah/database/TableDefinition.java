@@ -46,10 +46,10 @@ public class TableDefinition {
     }
 
     /**
-     * Fügt eine neue Spalte ein.
+     * Fügt eine neue Spalte am Ende ein.
      *
-     * @param name
-     * @param type
+     * @param name Name der Spalte
+     * @param type Datentyp der Spalte
      */
     public void addColumn(String name, ColumnType type) throws ColumnDefinedException {
         columns.add(new ColumnDefinition(name, type));

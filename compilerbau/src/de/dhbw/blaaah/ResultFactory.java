@@ -3,9 +3,9 @@ package de.dhbw.blaaah;
 import de.dhbw.blaaah.factories.DefaultResultFactory;
 
 /**
- * User: alexander
- * Date: 23.11.13
- * Time: 11:04
+ * Diese abstrakte Klasse wird verwendet, um Ergebnisobjekte zu erstellen. Dies können Objekte sein, die Fehlermeldungen
+ * enthalten, Tabellenzeilen im Fall von SELECT-Anweisungen oder nur die erfolgreiche Ausführung einer Anweisung
+ * bestätigen.
  */
 public abstract class ResultFactory {
     private static ResultFactory defaultFactory = new DefaultResultFactory();

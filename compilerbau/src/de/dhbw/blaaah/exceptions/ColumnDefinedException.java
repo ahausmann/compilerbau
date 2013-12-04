@@ -1,11 +1,7 @@
 package de.dhbw.blaaah.exceptions;
 
 /**
- * Author: Alexander Hausmann <hausmann.alex@gmail.com>
- * User: alexander
- * Creation date: 21.11.13 - 13:36
- * <p/>
- * Diese Ausnahme wird geworfen, wenn eine Spalte mehrmals definiert wird.
+ * Diese Ausnahme wird geworfen, wenn versucht wird eine Spalte mehrmals zu definieren.
  */
 public class ColumnDefinedException extends Exception {
     private String columnName;
