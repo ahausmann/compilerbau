@@ -2,12 +2,9 @@ package de.dhbw.blaaah.statements;
 
 import de.dhbw.blaaah.*;
 import de.dhbw.blaaah.database.ColumnDefinition;
-import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.exceptions.DatabaseException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

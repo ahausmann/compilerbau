@@ -1,7 +1,6 @@
 package de.dhbw.blaaah;
 
 import de.dhbw.blaaah.database.ColumnDefinition;
-import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.exceptions.InvalidRowException;
 import de.dhbw.blaaah.exceptions.InvalidValueException;
 
@@ -38,14 +37,6 @@ public interface Table {
      * @return
      */
     Iterable<Row> getRows();
-
-    /**
-     * NICHT IMPLEMENTIERT UND NICHT VERWENDEN!
-     * <p/>
-     * TODO: Entfernen vor Abgabe
-     */
-    @Deprecated
-    Iterable<Row> getRows(ColumnFilter columns);
 
     /**
      * Gibt die Zeile mit dem angegebenen Index zurück.

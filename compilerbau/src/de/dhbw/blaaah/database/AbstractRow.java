@@ -14,20 +14,10 @@ public abstract class AbstractRow implements Row {
 
     @Override
     public Object getColumn(String name) {
-        return getColumn(getColumnNames().indexOf(name));
-    }
-
-    @Override
-    public int getColumnCount() {
-        return getColumnNames().size();
-    }
-
-    @Override
-    public Object getColumn(int index) {
-        try {
+        int index = getColumnNames().indexOf(name);
+        if (index >= 0)
             return getValues().get(index);
-        } catch (IndexOutOfBoundsException ignored) {
+        else
             return null;
-        }
     }
 }

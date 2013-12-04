@@ -33,25 +33,6 @@ public interface Row {
     Object getColumn(String name);
 
     /**
-     * Gibt die Anzahl der Spalten zurück, die in dieser Zeile vorhanden sind.
-     *
-     * @return Anzahl der Spalten
-     */
-    @Deprecated
-    int getColumnCount();
-
-    /**
-     * Gibt den Wert einer Spalte zurück. Der Spaltenindex wird von links gezählt und beginnt bei {@value 0}.
-     *
-     * @param index Index der Spalte.
-     * @return Der Wert der Spalte
-     * @throws IndexOutOfBoundsException Diese Ausnahme wird geworfen, wenn es keine Spalte mit dem angegebenen Index
-     *                                   gibt
-     */
-    @Deprecated
-    Object getColumn(int index);
-
-    /**
      * Gibt die Namen aller Spalten zurück, die in dieser Zeile vorhanden sind. Spaltennamen können mehrfach in einer Zeile
      * vorkommen. Der Index in der Liste ist der gleiche wie in der Liste, die von {@link de.dhbw.blaaah.Row#getValues()}
      * zurückgegeben wird.

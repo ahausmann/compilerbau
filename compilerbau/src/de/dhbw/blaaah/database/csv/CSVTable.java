@@ -4,7 +4,6 @@ import de.dhbw.blaaah.Database;
 import de.dhbw.blaaah.Row;
 import de.dhbw.blaaah.Table;
 import de.dhbw.blaaah.database.ColumnDefinition;
-import de.dhbw.blaaah.database.ColumnFilter;
 import de.dhbw.blaaah.database.ColumnType;
 import de.dhbw.blaaah.exceptions.InvalidRowException;
 import de.dhbw.blaaah.exceptions.InvalidValueException;
@@ -131,11 +130,6 @@ public class CSVTable implements Table {
                 return new CSVTableIterator(self);
             }
         };
-    }
-
-    @Override
-    public Iterable<Row> getRows(ColumnFilter columns) {
-        throw new NotImplementedException();
     }
 
     @Override
