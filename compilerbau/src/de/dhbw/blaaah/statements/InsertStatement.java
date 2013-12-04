@@ -1,9 +1,7 @@
 package de.dhbw.blaaah.statements;
 
-import de.dhbw.blaaah.Database;
-import de.dhbw.blaaah.Result;
-import de.dhbw.blaaah.Statement;
-import de.dhbw.blaaah.Table;
+import de.dhbw.blaaah.*;
+import de.dhbw.blaaah.exceptions.ColumnUndefinedException;
 import de.dhbw.blaaah.exceptions.DatabaseException;
 import de.dhbw.blaaah.exceptions.InvalidRowException;
 
@@ -38,13 +36,19 @@ public class InsertStatement implements Statement {
     public Result execute(Database database) throws DatabaseException {
         Table table = database.getTable(tableName);
 
-        // Tabelle ist vorhanden und die Werte sind in der richtigen Anzahl vorhanden.
+        List<String> columns;
+        try {
+            columns = TableUtils.expandColumns(table, this.columns);
+        } catch (ColumnUndefinedException ex) {
+            return database.getResultFactory().createErrorResult(ex.getMessage());
+        }
+
         if (table != null) {
             for (List<String> rowValues : values) {
                 try {
                     table.addRow(database.getRowFactory().createRow(-1, columns, rowValues));
-                } catch (InvalidRowException ignored) {
-                    return database.getResultFactory().createErrorResult("Invalid values");
+                } catch (InvalidRowException e) {
+                    return database.getResultFactory().createErrorResult(e.getMessage());
                 }
             }
         }

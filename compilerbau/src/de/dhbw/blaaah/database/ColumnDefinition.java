@@ -1,5 +1,7 @@
 package de.dhbw.blaaah.database;
 
+import de.dhbw.blaaah.ColumnType;
+
 /**
  * Author: Alexander Hausmann <hausmann.alex@gmail.com>
  * User: alexander

@@ -1,5 +1,6 @@
 package de.dhbw.blaaah.database;
 
+import de.dhbw.blaaah.ColumnType;
 import de.dhbw.blaaah.exceptions.ColumnDefinedException;
 
 import java.util.ArrayList;

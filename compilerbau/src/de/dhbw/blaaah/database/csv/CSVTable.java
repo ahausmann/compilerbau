@@ -4,7 +4,7 @@ import de.dhbw.blaaah.Database;
 import de.dhbw.blaaah.Row;
 import de.dhbw.blaaah.Table;
 import de.dhbw.blaaah.database.ColumnDefinition;
-import de.dhbw.blaaah.database.ColumnType;
+import de.dhbw.blaaah.ColumnType;
 import de.dhbw.blaaah.exceptions.InvalidRowException;
 import de.dhbw.blaaah.exceptions.InvalidValueException;
 import de.dhbw.blaaah.exceptions.NoSuchTableException;
@@ -155,6 +155,22 @@ public class CSVTable implements Table {
 
         List<Object> values = new ArrayList<Object>(tableColumns.size());
         for (String column : tableColumns) {
+            ColumnType type = getColumn(column).getType();
+            Object value = row.getColumn(column);
+            // Ist der Wert in der Zeile ein gültiger Wert?
+            if (!type.isValidValue(value)) {
+                // Im Falle eines Strings versuchen zu parsen
+                if (value instanceof String) {
+                    Object newValue = type.parseValue((String)value);
+                    if (newValue == null)
+                        throw new InvalidRowException(String.format("Couldn't parse %s as %s (column: %s)", value, type, column));
+                    else
+                        value = newValue;
+                } else { // Kein String -> ungültiger Wert
+                    throw new InvalidRowException(String.format("Column %s has an invalid value: %s", column, value));
+                }
+            }
+
             values.add(row.getColumn(column));
         }
 
@@ -391,53 +407,21 @@ public class CSVTable implements Table {
         // Kopfzeile in die temporäre Datei schreiben
         writeHeader(tmpOutput);
 
-        // In der Tabellendatei an den Anfang gehen
-        accessFile.seek(0);
-        skipLines(accessFile, 1); // Kopfzeile überspringen
-
-        int lastRowIndex = -1;
-
-        for (int index : indices) {
-            Row row = loadedRows.get(index);
-
-            // Alle Zeilen, die zwischen der vorherigen und der jetzigen Zeile liegen kopieren
-            for (int i = lastRowIndex + 1; i < index; ++i) {
-                Row copyRow = readRow(i);
-
-                // Wenn die Zeile null ist, dann gibt es diese nicht (wurde gelöscht)
-                if (copyRow != null)
-                    writeCsvLine(tmpOutput, copyRow.getValues());
-                else
-                    tmpOutput.writeChar('\n');
+        for (int i = 0; i < rowCounter; ++i) {
+            Row row;
+            if (loadedRows.containsKey(i)) {
+                row = loadedRows.get(i);
+            } else {
+                row = readRow(i);
             }
 
-            // Zeile schreiben
-            if (row != null)
+            if (row == null) {
+                tmpOutput.write('\n');
+            } else {
                 writeCsvLine(tmpOutput, row.getValues());
-            else
-                tmpOutput.writeChar('\n');
-
-            // Letzten Index merken
-            lastRowIndex = index;
-        }
-
-        // accessFile ist an der Position der letzten gelesenen Zeile
-        // jetzt muss 1 Zeile übersprungen werden, um die letzte geschriebene Zeile zu überspringen
-
-        try {
-            skipLines(accessFile, 1);
-
-            byte[] buffer = new byte[4096];
-            while (true) {
-                int read = accessFile.read(buffer);
-                if (read > 0)
-                    tmpOutput.write(buffer, 0, read);
-                else
-                    break;
             }
-        } catch (EOFException ignored) {
-            // Schon am Ende der Tabellendatei, daher nichts mehr zu kopieren
         }
+
         // Alle Dateien schließen
         tmpOutput.close();
         accessFile.close();
@@ -505,16 +489,11 @@ public class CSVTable implements Table {
 
         @Override
         public boolean hasNext() {
-            try {
-                do {
-                    currentRow = table.readRowToCache(counter);
-                    counter++;
-                } while (currentRow == null);
-
-                return true;
-            } catch (IOException ex) {
-                return false;
+            currentRow = null;
+            while (currentRow == null && counter <= table.rowCounter) {
+                currentRow = table.getRow(counter++);
             }
+            return counter <= table.rowCounter;
         }
 
         @Override

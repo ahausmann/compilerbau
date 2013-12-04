@@ -1,4 +1,4 @@
-package de.dhbw.blaaah.database;
+package de.dhbw.blaaah;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -45,7 +45,7 @@ public enum ColumnType {
                 try {
                     return DecimalFormat.getInstance().parse(value);
                 } catch (ParseException e) {
-                    return 0;
+                    return null;
                 }
 
             case DATE:
