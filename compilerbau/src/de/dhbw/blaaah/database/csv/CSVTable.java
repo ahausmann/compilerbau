@@ -396,6 +396,7 @@ public class CSVTable implements Table {
 
         // In der Tabellendatei an den Anfang gehen
         accessFile.seek(0);
+        skipLines(accessFile, 1); // Kopfzeile überspringen
 
         int lastRowIndex = -1;
 

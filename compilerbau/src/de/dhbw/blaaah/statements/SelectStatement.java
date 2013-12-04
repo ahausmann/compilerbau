@@ -37,6 +37,9 @@ public class SelectStatement implements Statement {
     public Result execute(Database database) throws DatabaseException {
         Table table = database.getTable(tableName);
 
+        if (table == null)
+            return database.getResultFactory().createErrorResult("No such table.");
+
         List<String> realColumns = new ArrayList<String>();
         for (String column : columns) {
             if (column.equals("*")) {
