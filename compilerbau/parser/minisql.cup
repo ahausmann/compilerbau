@@ -23,6 +23,8 @@ terminal NUMBER, TEXT, DATE;
 
 non terminal statement_list, statement, create_statement, select_statement, insert_statement, update_statement, delete_statement, drop_statement;
 
+non terminal where_condition;
+
 non terminal name_list, value_list, row_list, select_list, create_list;
 
 non terminal typ;
@@ -89,14 +91,13 @@ value_list  ::= value_list:list COMMA VALUE:value
                :};
 
 select_statement ::= SELECT select_list:select FROM NAME:table SEMICOLON
-               {:
-                    RESULT = new SelectStatement((List<String>)select, (String)table, new AlwaysTrueCondition());
-               :}
-               |
-                    SELECT select_list:select FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
-               {:
-                    RESULT = new SelectStatement((List<String>)select, (String)table, new EqualsCondition((String)name, ParserUtil.value((String)value)));
-               :};
+				{:
+					 RESULT = new SelectStatement((List<String>)select, (String)table, new AlwaysTrueCondition());
+				:}
+				| SELECT select_list:select FROM NAME:table where_condition:condition SEMICOLON
+               	{:
+                	RESULT = new SelectStatement((List<String>)select, (String)table, (WhereCondition)condition);
+               	:};
 
 select_list ::= select_list:list COMMA NAME:name
                 {:
@@ -156,21 +157,26 @@ update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
                {:
                     RESULT = new UpdateStatement((String)table, (String)name, ParserUtil.value((String)value), new AlwaysTrueCondition());
                :}
-               | UPDATE NAME:table SET NAME:name EQUAL VALUE:value WHERE NAME:column EQUAL VALUE:columnv
+               | UPDATE NAME:table SET NAME:name EQUAL VALUE:value where_condition:condition SEMICOLON
                {:
-                    RESULT = new UpdateStatement((String)table, (String)name, ParserUtil.value((String)value), new EqualsCondition((String)column, ParserUtil.value((String)columnv)));
+                    RESULT = new UpdateStatement((String)table, (String)name, ParserUtil.value((String)value), (WhereCondition)condition);
                :};
 
 delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
                {:
                     RESULT = new DeleteStatement((String)table, new AlwaysTrueCondition());
                :}
-               | DELETE STAR FROM NAME:table WHERE NAME:name EQUAL VALUE:value SEMICOLON
+               | DELETE STAR FROM NAME:table where_condition:condition SEMICOLON
                {:
-                    RESULT = new DeleteStatement((String)table, new EqualsCondition((String)name, ParserUtil.value((String)value)));
+                    RESULT = new DeleteStatement((String)table, (WhereCondition)condition);
                :};
 
 drop_statement ::= DROP TABLE NAME:table SEMICOLON
                {:
                     RESULT = new DropTableStatement((String)table);
                :};
+
+where_condition ::= WHERE NAME:column EQUAL VALUE:value
+				{:
+					RESULT = new EqualsCondition((String)column, ParserUtil.value((String)value));
+				:};

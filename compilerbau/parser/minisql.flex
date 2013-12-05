@@ -33,6 +33,7 @@ import java_cup.runtime.*;
 [Vv][Aa][Ll][Uu][Ee][Ss]    { return sf.newSymbol("VALUES", sym.VALUES); }
 [Ss][Ee][Tt]                { return sf.newSymbol("SET", sym.SET); }
 [Dd][Ee][Ll][Ee][Tt][Ee]    { return sf.newSymbol("DELETE", sym.DELETE); }
+[Ww][Hh][Ee][Rr][Ee]		{ return sf.newSymbol("WHERE", sym.WHERE); }
 [Dd][Rr][Oo][Pp]            { return sf.newSymbol("DROP", sym.DROP); }
 [Tt][Ee][Xx][Tt]			{ return sf.newSymbol("TEXT", sym.TEXT); }
 [Nn][Uu][Mm][Bb][Ee][Rr]	{ return sf.newSymbol("NUMBER", sym.NUMBER); }

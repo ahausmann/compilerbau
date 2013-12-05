@@ -37,16 +37,7 @@ public class SelectStatement implements Statement {
         if (table == null)
             return database.getResultFactory().createErrorResult("No such table.");
 
-        List<String> realColumns = new ArrayList<String>();
-        for (String column : columns) {
-            if (column.equals("*")) {
-                for (ColumnDefinition columnDef : table.getColumns()) {
-                    realColumns.add(columnDef.getName());
-                }
-            } else {
-                realColumns.add(column);
-            }
-        }
+        List<String> realColumns = TableUtils.expandColumns(table, columns);
 
         List<Row> rows = new ArrayList<Row>();
 

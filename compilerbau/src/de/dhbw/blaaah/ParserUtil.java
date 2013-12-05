@@ -1,4 +1,4 @@
-package de.dhbw.blaaah.parser;
+package de.dhbw.blaaah;
 
 /**
  * User: alexander

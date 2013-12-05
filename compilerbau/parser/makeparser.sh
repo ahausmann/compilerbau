@@ -9,6 +9,8 @@ PARSER_NAME=MiniSqlParser
 
 # Java-Klassen erzeugen
 
+rm $DEST_DIR/*
+
 $JAVA -jar $CUP_JAR -destdir $DEST_DIR -parser $PARSER_NAME minisql.cup
 
 $JAVA -jar $JFLEX_JAR -d $DEST_DIR minisql.flex

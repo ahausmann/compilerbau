@@ -11,12 +11,14 @@ import de.dhbw.blaaah.exceptions.NoSuchTableException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * Implementierung der Tabellenschnittstelle basierend auf CSV-Dateien. Diese Implementierung liest nur
+ * Implementierung der Tabellenschnittstelle basierend auf CSV-Dateien.
  */
 public class CSVTable implements Table {
     /**
@@ -332,15 +334,27 @@ public class CSVTable implements Table {
      * @param count Anzahl der Zeichen, die übersprungen werden
      */
     protected void skipLines(DataInput input, int count) throws IOException {
-        boolean escape = false;
-        char current;
-
-        do {
-            input.readUTF();
-            char c = input.readChar();
-            if (c == '\n')
-                count--;
-        } while (count > 0);
+        int length;
+        while (count > 0) {
+            length = input.readShort();
+            if (length == -1) {
+                if (input.readChar() == '\n')
+                    count--;
+                else
+                    throw new IOException("Invalid table file"); // Invalid
+            } else {
+                input.skipBytes(length);
+                switch (input.readChar()) {
+                    case ';':
+                        break;
+                    case '\n':
+                        count--;
+                        break;
+                    default:
+                        throw new IOException("Invalid table file");
+                }
+            }
+        }
     }
 
     /**
@@ -416,6 +430,7 @@ public class CSVTable implements Table {
             }
 
             if (row == null) {
+                tmpOutput.writeShort(-1);
                 tmpOutput.write('\n');
             } else {
                 writeCsvLine(tmpOutput, row.getValues());
