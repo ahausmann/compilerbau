@@ -278,12 +278,6 @@ public class CSVTable implements Table {
                     case 'T':
                         type = ColumnType.TEXT;
                         break;
-                    case 'B':
-                        type = ColumnType.BLOB;
-                        break;
-                    case 'D':
-                        type = ColumnType.DATE;
-                        break;
                     case '+':
                         // Dies ist das Feld, das den Index-Counter angibt
                         rowCounter = Integer.parseInt(name);

@@ -13,8 +13,6 @@ import java.util.Date;
 public enum ColumnType {
     TEXT ('T'),
     NUMBER ('N'),
-    DATE ('D'),
-    BLOB ('B'),
     UNKNOWN ('\0');
 
     private char shortId;
@@ -48,16 +46,6 @@ public enum ColumnType {
                     return null;
                 }
 
-            case DATE:
-                try {
-                    return DateFormat.getInstance().parse(value);
-                } catch (ParseException e) {
-                    return null;
-                }
-
-            case BLOB:
-                return null;
-
             default:
                 return null;
         }
@@ -69,10 +57,6 @@ public enum ColumnType {
                 return value instanceof String;
             case NUMBER:
                 return (value instanceof Integer) || (value instanceof Double);
-            case DATE:
-                return (value instanceof Date);
-            case BLOB:
-                return (value instanceof byte[]);
             default:
                 return false;
         }
