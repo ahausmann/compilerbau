@@ -3,66 +3,289 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="718.0">de.dhbw.blaaah.ResultFactory</node>
-    <node x="916.5" y="506.0">de.dhbw.blaaah.database.ColumnFilter</node>
-    <node x="0.0" y="604.0">de.dhbw.blaaah.statements.InsertStatement</node>
-    <node x="155.25" y="506.0">de.dhbw.blaaah.Statement</node>
-    <node x="541.0" y="506.0">de.dhbw.blaaah.Condition</node>
-    <node x="0.0" y="253.0">de.dhbw.blaaah.Table</node>
-    <node x="430.0" y="604.0">de.dhbw.blaaah.statements.SelectStatement</node>
-    <node x="325.0" y="718.0">de.dhbw.blaaah.Row</node>
-    <node x="1142.0" y="604.0">de.dhbw.blaaah.database.filter.NameColumnFilter</node>
-    <node x="1423.0" y="614.5">de.dhbw.blaaah.database.filter.StarColumnFilter</node>
-    <node x="842.0" y="604.0">de.dhbw.blaaah.database.filter.OrColumnFilter</node>
-    <node x="0.0" y="891.0">de.dhbw.blaaah.RowFactory</node>
-    <node x="0.0" y="0.0">de.dhbw.blaaah.Database</node>
+    <node x="1297.4315476190477" y="188.0">de.dhbw.blaaah.WhereCondition</node>
+    <node x="750.4315476190477" y="287.0">de.dhbw.blaaah.statements.DropTableStatement</node>
+    <node x="1254.4315476190477" y="287.0">de.dhbw.blaaah.statements.UpdateStatement</node>
+    <node x="352.0681277056277" y="188.0">de.dhbw.blaaah.database.TableDefinition</node>
+    <node x="1757.4315476190477" y="287.0">de.dhbw.blaaah.ProjectionRow</node>
+    <node x="87.99123376623402" y="79.0">de.dhbw.blaaah.database.csv.CSVDatabase</node>
+    <node x="1800.866233766234" y="366.0">de.dhbw.blaaah.factories.DefaultRowFactory</node>
+    <node x="2118.0982142857147" y="79.0">de.dhbw.blaaah.results.AbstractResult</node>
+    <node x="1823.366233766234" y="445.0">de.dhbw.blaaah.RowFactory</node>
+    <node x="2118.5982142857147" y="188.0">de.dhbw.blaaah.results.SuccessResult</node>
+    <node x="226.99123376623402" y="79.0">de.dhbw.blaaah.Table</node>
+    <node x="2000.5982142857144" y="188.0">de.dhbw.blaaah.results.RowResult</node>
+    <node x="1867.4315476190477" y="188.0">de.dhbw.blaaah.database.AbstractRow</node>
+    <node x="398.4315476190477" y="287.0">de.dhbw.blaaah.statements.CreateTableStatement</node>
+    <node x="2088.866233766234" y="287.0">de.dhbw.blaaah.factories.DefaultResultFactory</node>
+    <node x="594.4315476190477" y="287.0">de.dhbw.blaaah.statements.InsertStatement</node>
+    <node x="1095.4315476190477" y="287.0">de.dhbw.blaaah.statements.SelectStatement</node>
+    <node x="1829.3181277056278" y="79.0">de.dhbw.blaaah.Row</node>
+    <node x="1420.4315476190477" y="287.0">de.dhbw.blaaah.conditions.AlwaysTrueCondition</node>
+    <node x="327.1912337662342" y="79.0">de.dhbw.blaaah.database.ColumnDefinition</node>
+    <node x="0.0" y="188.0">de.dhbw.blaaah.ConsoleApplication</node>
+    <node x="2144.5982142857147" y="0.0">de.dhbw.blaaah.Result</node>
+    <node x="1899.4315476190477" y="287.0">de.dhbw.blaaah.database.DefaultRow</node>
+    <node x="58.59148629148626" y="0.0">de.dhbw.blaaah.Database</node>
+    <node x="5.5" y="598.0">de.dhbw.blaaah.parser.MiniSqlParser</node>
+    <node x="2111.366233766234" y="366.0">de.dhbw.blaaah.ResultFactory</node>
+    <node x="2263.5982142857147" y="188.0">de.dhbw.blaaah.results.ErrorResult</node>
+    <node x="0.0" y="519.0">de.dhbw.blaaah.parser.MiniSqlScanner</node>
+    <node x="851.0565476190477" y="188.0">de.dhbw.blaaah.Statement</node>
+    <node x="197.34148629148626" y="188.0">de.dhbw.blaaah.database.csv.CSVTable</node>
+    <node x="1602.4315476190477" y="287.0">de.dhbw.blaaah.conditions.EqualsCondition</node>
+    <node x="934.4315476190477" y="287.0">de.dhbw.blaaah.statements.DeleteStatement</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="de.dhbw.blaaah.database.filter.NameColumnFilter" target="de.dhbw.blaaah.database.ColumnFilter">
-      <point x="0.0" y="-34.5" />
-      <point x="1272.5" y="584.0" />
-      <point x="1106.2" y="584.0" />
-      <point x="54.19999999999999" y="24.0" />
+    <edge source="de.dhbw.blaaah.conditions.AlwaysTrueCondition" target="de.dhbw.blaaah.WhereCondition">
+      <point x="0.0" y="-14.5" />
+      <point x="1501.4315476190477" y="267.0" />
+      <point x="1390.5315476190476" y="267.0" />
+      <point x="26.59999999999991" y="14.5" />
     </edge>
-    <edge source="de.dhbw.blaaah.statements.InsertStatement" target="de.dhbw.blaaah.Statement">
-      <point x="0.0" y="-34.5" />
-      <point x="-49.75" y="24.0" />
+    <edge source="de.dhbw.blaaah.results.SuccessResult" target="de.dhbw.blaaah.results.AbstractResult">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
     </edge>
-    <edge source="de.dhbw.blaaah.statements.SelectStatement" target="de.dhbw.blaaah.Condition">
-      <point x="0.0" y="-34.5" />
-      <point x="0.0" y="24.0" />
+    <edge source="de.dhbw.blaaah.ProjectionRow" target="de.dhbw.blaaah.database.AbstractRow">
+      <point x="30.5" y="-14.5" />
+      <point x="1848.9315476190477" y="267.0" />
+      <point x="1895.4315476190477" y="267.0" />
+      <point x="-28.0" y="14.5" />
     </edge>
-    <edge source="de.dhbw.blaaah.database.filter.StarColumnFilter" target="de.dhbw.blaaah.database.ColumnFilter">
-      <point x="0.0" y="-24.0" />
-      <point x="1558.5" y="574.0" />
-      <point x="1160.4" y="574.0" />
-      <point x="108.39999999999998" y="24.0" />
+    <edge source="de.dhbw.blaaah.results.ErrorResult" target="de.dhbw.blaaah.results.AbstractResult">
+      <point x="0.0" y="-14.5" />
+      <point x="2315.5982142857147" y="168.0" />
+      <point x="2223.0982142857147" y="168.0" />
+      <point x="42.0" y="14.5" />
     </edge>
-    <edge source="de.dhbw.blaaah.database.filter.OrColumnFilter" target="de.dhbw.blaaah.database.ColumnFilter">
-      <point x="70.0" y="-34.5" />
-      <point x="0.0" y="24.0" />
+    <edge source="de.dhbw.blaaah.statements.UpdateStatement" target="de.dhbw.blaaah.Statement">
+      <point x="-36.5" y="-14.5" />
+      <point x="1290.9315476190477" y="237.0" />
+      <point x="942.7232142857142" y="237.0" />
+      <point x="41.66666666666663" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.CreateTableStatement" target="de.dhbw.blaaah.database.ColumnDefinition">
+      <point x="0.0" y="-14.5" />
+      <point x="486.4315476190477" y="267.0" />
+      <point x="489.5681277056277" y="267.0" />
+      <point x="489.5681277056277" y="138.0" />
+      <point x="452.2912337662342" y="138.0" />
+      <point x="55.60000000000002" y="14.5" />
     </edge>
     <edge source="de.dhbw.blaaah.statements.SelectStatement" target="de.dhbw.blaaah.Statement">
-      <point x="-130.66666666666663" y="-34.5" />
-      <point x="495.33333333333337" y="584.0" />
-      <point x="304.5" y="584.0" />
-      <point x="49.75" y="24.0" />
+      <point x="-34.75" y="-14.5" />
+      <point x="1130.1815476190477" y="247.0" />
+      <point x="926.0565476190477" y="247.0" />
+      <point x="25.0" y="14.5" />
     </edge>
-    <edge source="de.dhbw.blaaah.statements.SelectStatement" target="de.dhbw.blaaah.database.ColumnFilter">
-      <point x="130.66666666666663" y="-34.5" />
-      <point x="756.6666666666666" y="574.0" />
-      <point x="943.6" y="574.0" />
-      <point x="-108.39999999999998" y="24.0" />
+    <edge source="de.dhbw.blaaah.statements.DeleteStatement" target="de.dhbw.blaaah.Statement">
+      <point x="-35.25" y="-14.5" />
+      <point x="969.6815476190477" y="267.0" />
+      <point x="909.389880952381" y="267.0" />
+      <point x="8.333333333333371" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.factories.DefaultRowFactory" target="de.dhbw.blaaah.ProjectionRow">
+      <point x="-37.5" y="-14.5" />
+      <point x="1838.366233766234" y="341.0" />
+      <point x="1818.4315476190477" y="341.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.TableDefinition" target="de.dhbw.blaaah.database.ColumnDefinition">
+      <point x="-31.75" y="-14.5" />
+      <point x="383.8181277056277" y="148.0" />
+      <point x="396.6912337662342" y="148.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.factories.DefaultRowFactory" target="de.dhbw.blaaah.RowFactory">
+      <point x="37.5" y="14.5" />
+      <point x="1913.366233766234" y="420.0" />
+      <point x="1902.116233766234" y="420.0" />
+      <point x="26.25" y="-14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.csv.CSVTable" target="de.dhbw.blaaah.Table">
+      <point x="0.0" y="-14.5" />
+      <point x="243.34148629148626" y="128.0" />
+      <point x="260.991233766234" y="128.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.factories.DefaultResultFactory" target="de.dhbw.blaaah.results.RowResult">
+      <point x="-54.66666666666666" y="-14.5" />
+      <point x="2116.1995670995675" y="267.0" />
+      <point x="2049.5982142857147" y="267.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.InsertStatement" target="de.dhbw.blaaah.Statement">
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+      <point x="662.4315476190477" y="257.0" />
+      <point x="876.0565476190477" y="257.0" />
+      <point x="-25.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.results.AbstractResult" target="de.dhbw.blaaah.Result">
+      <point x="31.500000000000057" y="-14.5" />
+      <point x="2212.5982142857147" y="54.0" />
+      <point x="2199.3482142857147" y="54.0" />
+      <point x="18.25" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.RowFactory" target="de.dhbw.blaaah.factories.DefaultRowFactory">
+      <point x="-26.25" y="-14.5" />
+      <point x="1849.616233766234" y="420.0" />
+      <point x="1838.366233766234" y="420.0" />
+      <point x="-37.5" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.CreateTableStatement" target="de.dhbw.blaaah.Statement">
+      <point x="58.66666666666666" y="-14.5" />
+      <point x="545.0982142857143" y="247.0" />
+      <point x="859.389880952381" y="247.0" />
+      <point x="-41.666666666666686" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.parser.MiniSqlParser" target="de.dhbw.blaaah.parser.MiniSqlScanner">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.factories.DefaultRowFactory" target="de.dhbw.blaaah.database.DefaultRow">
+      <point x="37.5" y="-14.5" />
+      <point x="1913.366233766234" y="341.0" />
+      <point x="1951.4315476190477" y="341.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.csv.CSVDatabase" target="de.dhbw.blaaah.Database">
+      <point x="0.0" y="-14.5" />
+      <point x="147.49123376623402" y="54.0" />
+      <point x="129.84148629148626" y="54.0" />
+      <point x="23.75" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.ConsoleApplication" target="de.dhbw.blaaah.database.csv.CSVDatabase">
+      <point x="38.25" y="-14.5" />
+      <point x="114.75" y="168.0" />
+      <point x="102.86623376623402" y="168.0" />
+      <point x="-44.625" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.SelectStatement" target="de.dhbw.blaaah.WhereCondition">
+      <point x="34.75" y="-14.5" />
+      <point x="1199.6815476190477" y="267.0" />
+      <point x="1337.3315476190478" y="267.0" />
+      <point x="-26.600000000000023" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.UpdateStatement" target="de.dhbw.blaaah.WhereCondition">
+      <point x="36.5" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.CreateTableStatement" target="de.dhbw.blaaah.database.TableDefinition">
+      <point x="-58.66666666666666" y="-14.5" />
+      <point x="427.7648809523811" y="267.0" />
+      <point x="415.5681277056277" y="267.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.factories.DefaultResultFactory" target="de.dhbw.blaaah.ResultFactory">
+      <point x="41.0" y="14.5" />
+      <point x="2211.866233766234" y="341.0" />
+      <point x="2200.616233766234" y="341.0" />
+      <point x="29.75" y="-14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.conditions.EqualsCondition" target="de.dhbw.blaaah.WhereCondition">
+      <point x="0.0" y="-14.5" />
+      <point x="1669.9315476190477" y="257.0" />
+      <point x="1417.1315476190478" y="257.0" />
+      <point x="53.200000000000045" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.AbstractRow" target="de.dhbw.blaaah.Row">
+      <point x="0.0" y="-14.5" />
+      <point x="1923.4315476190477" y="168.0" />
+      <point x="1866.1931277056278" y="168.0" />
+      <point x="7.375" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.factories.DefaultResultFactory" target="de.dhbw.blaaah.results.ErrorResult">
+      <point x="54.66666666666666" y="-14.5" />
+      <point x="2225.5329004329005" y="267.0" />
+      <point x="2315.5982142857147" y="267.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.csv.CSVTable" target="de.dhbw.blaaah.database.csv.CSVDatabase">
+      <point x="-39.428571428571445" y="-14.5" />
+      <point x="203.91291486291493" y="168.0" />
+      <point x="132.61623376623402" y="168.0" />
+      <point x="-14.875" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.csv.CSVDatabase" target="de.dhbw.blaaah.database.csv.CSVTable">
+      <point x="44.625" y="14.5" />
+      <point x="192.11623376623402" y="148.0" />
+      <point x="230.19862914862915" y="148.0" />
+      <point x="-13.14285714285711" y="-14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.DefaultRow" target="de.dhbw.blaaah.database.AbstractRow">
+      <point x="0.0" y="-14.5" />
+      <point x="28.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.DropTableStatement" target="de.dhbw.blaaah.Statement">
+      <point x="0.0" y="-14.5" />
+      <point x="832.4315476190477" y="267.0" />
+      <point x="892.7232142857142" y="267.0" />
+      <point x="-8.333333333333371" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.csv.CSVTable" target="de.dhbw.blaaah.Row">
+      <point x="39.428571428571445" y="-14.5" />
+      <point x="282.7700577200577" y="158.0" />
+      <point x="1836.6931277056278" y="158.0" />
+      <point x="-22.125" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.factories.DefaultResultFactory" target="de.dhbw.blaaah.results.SuccessResult">
+      <point x="0.0" y="-14.5" />
+      <point x="2170.866233766234" y="267.0" />
+      <point x="2181.0982142857147" y="267.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.statements.DeleteStatement" target="de.dhbw.blaaah.WhereCondition">
+      <point x="35.25" y="-14.5" />
+      <point x="1040.1815476190477" y="257.0" />
+      <point x="1310.7315476190477" y="257.0" />
+      <point x="-53.200000000000045" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.results.RowResult" target="de.dhbw.blaaah.results.AbstractResult">
+      <point x="24.5" y="-14.5" />
+      <point x="2074.0982142857147" y="168.0" />
+      <point x="2139.0982142857147" y="168.0" />
+      <point x="-42.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.ConsoleApplication" target="de.dhbw.blaaah.Database">
+      <point x="-38.25" y="-14.5" />
+      <point x="38.25" y="168.0" />
+      <point x="59.84148629148626" y="168.0" />
+      <point x="59.84148629148626" y="54.0" />
+      <point x="82.34148629148626" y="54.0" />
+      <point x="-23.75" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.ResultFactory" target="de.dhbw.blaaah.factories.DefaultResultFactory">
+      <point x="-29.75" y="-14.5" />
+      <point x="2141.116233766234" y="341.0" />
+      <point x="2129.866233766234" y="341.0" />
+      <point x="-41.0" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.database.csv.CSVTable" target="de.dhbw.blaaah.database.ColumnDefinition">
+      <point x="13.14285714285711" y="-14.5" />
+      <point x="256.4843434343434" y="138.0" />
+      <point x="341.09123376623415" y="138.0" />
+      <point x="-55.599999999999994" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.ProjectionRow" target="de.dhbw.blaaah.Row">
+      <point x="-30.5" y="-14.5" />
+      <point x="1787.9315476190477" y="168.0" />
+      <point x="1851.4431277056278" y="168.0" />
+      <point x="-7.375" y="14.5" />
+    </edge>
+    <edge source="de.dhbw.blaaah.results.RowResult" target="de.dhbw.blaaah.Row">
+      <point x="-24.5" y="-14.5" />
+      <point x="2025.0982142857144" y="158.0" />
+      <point x="1880.9431277056278" y="158.0" />
+      <point x="22.125" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.572928821470245" x="847.0" y="579.6802443991853" />
-  <SelectedNodes />
-  <Categories>
-    <Category>Fields</Category>
-    <Category>Constructors</Category>
-    <Category>Methods</Category>
-  </Categories>
+  <settings layout="Hierarchic Group" zoom="0.94179229480737" x="925.1022676745221" y="198.26900844819926" />
+  <SelectedNodes>
+    <node>de.dhbw.blaaah.ResultFactory</node>
+  </SelectedNodes>
+  <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>public</VISIBILITY>
 </Diagram>
