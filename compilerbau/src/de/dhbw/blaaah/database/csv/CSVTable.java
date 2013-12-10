@@ -168,6 +168,8 @@ public class CSVTable implements Table {
                         throw new InvalidRowException(String.format("Couldn't parse %s as %s (column: %s)", value, type, column));
                     else
                         value = newValue;
+                } else if (value == null) {
+                    // null ist ein zulässiger Wert
                 } else { // Kein String -> ungültiger Wert
                     throw new InvalidRowException(String.format("Column %s has an invalid value: %s", column, value));
                 }

@@ -101,10 +101,10 @@ public class CSVDatabase implements Database {
             CSVTable table = tables.get(name);
             File tableFile = table.getTableFile();
 
-            tables.remove(name);
             if (!tableFile.delete()) {
                 return getResultFactory().createErrorResult("Table couldn't be deleted!");
             } else {
+                tables.remove(name);
                 return getResultFactory().createSuccessResult();
             }
         }
