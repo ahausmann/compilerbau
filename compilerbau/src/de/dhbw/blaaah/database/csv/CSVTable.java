@@ -173,7 +173,7 @@ public class CSVTable implements Table {
                 }
             }
 
-            values.add(row.getColumn(column));
+            values.add(value);
         }
 
         Row addedRow = database.getRowFactory().createRow(rowCounter, tableColumns, values);
