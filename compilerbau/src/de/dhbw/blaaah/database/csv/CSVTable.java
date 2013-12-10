@@ -312,7 +312,7 @@ public class CSVTable implements Table {
                 String column = input.readUTF();
                 columns.add(column);
 
-                if (input.readChar() == '\n') {
+                if (input.readByte() == '\n') {
                     break;
                 }
             }
@@ -334,13 +334,13 @@ public class CSVTable implements Table {
         while (count > 0) {
             length = input.readShort();
             if (length == -1) {
-                if (input.readChar() == '\n')
+                if (input.readByte() == '\n')
                     count--;
                 else
                     throw new IOException("Invalid table file"); // Invalid
             } else {
                 input.skipBytes(length);
-                switch (input.readChar()) {
+                switch (input.readByte()) {
                     case ';':
                         break;
                     case '\n':
@@ -460,7 +460,7 @@ public class CSVTable implements Table {
 
         for (Object value : values) {
             if (!first) {
-                output.writeChar(';');
+                output.writeByte(';');
             }
 
             // Leere Spalten überspringen
@@ -471,7 +471,7 @@ public class CSVTable implements Table {
             first = false;
         }
 
-        output.writeChar('\n');
+        output.writeByte('\n');
     }
 
     /**
