@@ -37,7 +37,6 @@ import java_cup.runtime.*;
 [Dd][Rr][Oo][Pp]            { return sf.newSymbol("DROP", sym.DROP); }
 [Tt][Ee][Xx][Tt]			{ return sf.newSymbol("TEXT", sym.TEXT); }
 [Nn][Uu][Mm][Bb][Ee][Rr]	{ return sf.newSymbol("NUMBER", sym.NUMBER); }
-[Dd][Aa][Tt][Ee]			{ return sf.newSymbol("DATE", sym.DATE); }
 ";"                         { return sf.newSymbol(";", sym.SEMICOLON); }
 "("                         { return sf.newSymbol("(", sym.LEFT_PARENTHESIS); }
 ")"                         { return sf.newSymbol(")", sym.RIGHT_PARENTHESIS); }

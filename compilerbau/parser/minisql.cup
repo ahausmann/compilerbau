@@ -135,10 +135,6 @@ typ ::= NUMBER
 		| TEXT
 		{:
 			RESULT = "TEXT";
-		:}
-		| DATE
-		{:
-			RESULT = "DATE";
 		:};
 
 create_list ::= create_list:list COMMA NAME:name typ:typ
@@ -162,11 +158,11 @@ update_statement ::= UPDATE NAME:table SET NAME:name EQUAL VALUE:value SEMICOLON
                     RESULT = new UpdateStatement((String)table, (String)name, ParserUtil.value((String)value), (WhereCondition)condition);
                :};
 
-delete_statement ::= DELETE STAR FROM NAME:table SEMICOLON
+delete_statement ::= DELETE FROM NAME:table SEMICOLON
                {:
                     RESULT = new DeleteStatement((String)table, new AlwaysTrueCondition());
                :}
-               | DELETE STAR FROM NAME:table where_condition:condition SEMICOLON
+               | DELETE FROM NAME:table where_condition:condition SEMICOLON
                {:
                     RESULT = new DeleteStatement((String)table, (WhereCondition)condition);
                :};
